@@ -9,7 +9,7 @@ public class ProdutoTeste {
 
         System.out.println("Saída do produto 1");
         System.out.printf("Nome: %s\n", produto1.nome);
-        System.out.printf("Preço com desconto: %.2f\n", produto1.preco * (1 - produto1.desconto));
+        System.out.printf("Preço com desconto: %.2f\n", produto1.precoComDesconto());
 
         Produto produto2 = new Produto();
         produto2.nome = "Janela";
@@ -18,8 +18,8 @@ public class ProdutoTeste {
 
         System.out.println("\nSaída do produto 2");
         System.out.printf("Nome: %s\n", produto2.nome);
-        System.out.printf("Preço com desconto: %.2f\n", produto2.preco * (1 - produto2.desconto));
+        System.out.printf("Preço com desconto: %.2f\n", produto2.precoComDesconto(0.10));
 
-        System.out.printf("Média dos preços dos produtos descontados %.2f\n", (produto1.preco * (1 - produto1.desconto) + produto2.preco * (1 - produto2.desconto)) / 2);
+        System.out.printf("Média dos preços dos produtos descontados %.2f\n", (produto1.precoComDesconto() + produto2.precoComDesconto(0.10)) / 2);
     }
 }
