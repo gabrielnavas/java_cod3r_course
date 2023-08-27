@@ -5,6 +5,17 @@ public class MinhaData {
     int mes;
     int ano;
 
+    MinhaData() {
+        dia = 1;
+        mes = 1;
+        ano = 1970;
+    }
+
+    MinhaData(int diaInicial, int mesInicial, int anoInicial) {
+        dia = diaInicial;
+        mes = mesInicial;
+        ano = anoInicial;
+    }
 
     String obterDataFormatada(boolean formatoAmericano) {
         String dataResultante;
