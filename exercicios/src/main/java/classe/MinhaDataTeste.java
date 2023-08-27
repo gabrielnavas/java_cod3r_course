@@ -2,14 +2,19 @@ package classe;
 
 import java.util.Date;
 
-public class MinhadataTeste {
+public class MinhaDataTeste {
     public static void main(String[] args) {
-        Date d1 = new Date();
-        Date d2 = new Date();
-
         MinhaData md1 =new MinhaData();
-        d1.dia =
+        md1.dia = 25;
+        md1.mes = 12;
+        md1.ano = 2008;
 
-        MinhaData d2 =new MinhaData();
+        MinhaData md2 =new MinhaData();
+        md2.dia = 22;
+        md2.mes = 06;
+        md2.ano = 1999;
+
+        System.out.printf("%s/%s/%s\n", md1.dia, md1.mes, md1.ano);
+        System.out.printf("%s/%s/%s\n", md2.dia, md2.mes, md2.ano);
     }
 }
