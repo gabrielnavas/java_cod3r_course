@@ -6,15 +6,13 @@ public class MinhaData {
     int ano;
 
     MinhaData() {
-        dia = 1;
-        mes = 1;
-        ano = 1970;
+        this(1,1,1970);
     }
 
-    MinhaData(int diaInicial, int mesInicial, int anoInicial) {
-        dia = diaInicial;
-        mes = mesInicial;
-        ano = anoInicial;
+    MinhaData(int dia, int mes, int ano) {
+        this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
     }
 
     String obterDataFormatada(boolean formatoAmericano) {
