@@ -1,11 +1,12 @@
 package oo.desafio;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Compra {
 
     final Cliente cliente;
-    final ArrayList<Item> itens;
+    final List<Item> itens;
 
     Compra(Cliente cliente) {
         this.cliente = cliente;
