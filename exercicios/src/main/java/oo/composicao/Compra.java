@@ -1,4 +1,4 @@
-package oo;
+package oo.composicao;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class Compra {
         itens.add(item);
     }
 
-    void adicionarItem(String nome, int quantidade,double preco) {
+    void adicionarItem(String nome, int quantidade, double preco) {
         Item item = new Item(nome, quantidade, preco);
         item.compra = this;
         itens.add(item);

@@ -1,4 +1,4 @@
-package oo;
+package oo.composicao;
 
 public class CarroTest {
     public static void main(String[] args) {

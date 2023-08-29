@@ -1,4 +1,4 @@
-package oo;
+package oo.composicao;
 
 import java.util.ArrayList;
 
@@ -19,8 +19,8 @@ public class Curso {
     Aluno obterAlunoPorNome(String nome) {
         Aluno aluno = null;
 
-        for(Aluno a : this.alunos) {
-            if(a.nome.equals(nome)) {
+        for (Aluno a : this.alunos) {
+            if (a.nome.equals(nome)) {
                 aluno = a;
                 break;
             }

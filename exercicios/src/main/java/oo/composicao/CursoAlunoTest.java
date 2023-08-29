@@ -1,4 +1,4 @@
-package oo;
+package oo.composicao;
 
 public class CursoAlunoTest {
     public static void main(String[] args) {
@@ -32,7 +32,7 @@ public class CursoAlunoTest {
         }
 
         Aluno alunoEncontrado = c1.obterAlunoPorNome("João");
-        if(alunoEncontrado != null) {
+        if (alunoEncontrado != null) {
             System.out.printf("Aluno encontrado: %s\n", alunoEncontrado.nome);
         }
     }

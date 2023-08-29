@@ -1,21 +1,21 @@
-package oo;
+package oo.composicao;
 
 public class Carro {
 
     final Motor motor;
 
     Carro() {
-        motor= new Motor(this);
+        motor = new Motor(this);
     }
 
     void acelerar() {
-        if(motor.fatorInjecao + 0.5 < 3) {
+        if (motor.fatorInjecao + 0.5 < 3) {
             motor.fatorInjecao += 0.5;
         }
     }
 
     void frear() {
-        if(motor.fatorInjecao - 0.5 > 0.5) {
+        if (motor.fatorInjecao - 0.5 > 0.5) {
             motor.fatorInjecao -= 0.5;
         }
     }

@@ -1,4 +1,4 @@
-package oo.desafio;
+package oo.composicao.desafio;
 
 public class LojaTeste {
     public static void main(String[] args) {
