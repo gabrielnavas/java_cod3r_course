@@ -6,16 +6,29 @@ public class AtaqueTeste {
         jogador.x = 0;
         jogador.y = 0;
 
-        Jogador oponente = new Heroi();
-        oponente.x = 0;
-        oponente.y = 1;
+        Jogador monstro = new Monstro();
+        monstro.x = 0;
+        monstro.y = 1;
 
-        System.out.println(jogador.vida);
-        System.out.println(oponente.vida);
+        System.out.println(jogador.vida); // 100
+        System.out.println(monstro.vida); // 100
 
-        jogador.atacar(oponente);
+        jogador.atacar(monstro);
 
-        System.out.println(jogador.vida);
-        System.out.println(oponente.vida);
+        System.out.println(jogador.vida); // 100
+        System.out.println(monstro.vida); // 95
+
+        monstro.atacar(jogador);
+
+        System.out.println(jogador.vida); // 80
+        System.out.println(monstro.vida); // 95
+
+        monstro.andar(Direcao.NORTE); // mudou a direção e deixou de ser paralelo
+
+        boolean atacou = monstro.atacar(jogador);
+
+        System.out.printf("atacou? %b\n", atacou);
+        System.out.println(jogador.vida); // 80
+        System.out.println(monstro.vida); // 95
     }
 }

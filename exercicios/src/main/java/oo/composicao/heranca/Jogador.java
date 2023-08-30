@@ -6,12 +6,12 @@ public class Jogador {
 
     int vida;
 
-    final static int MAXIMO_TABULEIRO = 100;
-    final static int MINIMO_TABULEIRO = 0;
+    final private static int MAXIMO_TABULEIRO = 100;
+    final private static int MINIMO_TABULEIRO = 0;
 
-    final static int MAXIMO_VIDA = 100;
+    final private static int MAXIMO_VIDA = 100;
 
-    final static int ATAQUE_PARALELO = 10;
+    final protected static int ATAQUE_PARALELO = 10;
 
     Jogador() {
         this.vida = MAXIMO_VIDA;
@@ -25,13 +25,13 @@ public class Jogador {
 
         // jogador e oponente está no mesmo eixo x e paralelos no eixo y
         if (deltaX == 0 && deltaY == 1) {
-            oponente.vida -= ATAQUE_PARALELO;
+            reduzirVidaAtaqueParalelo(oponente);
             atacou = true;
         }
 
         // jogador e oponente está no mesmo eixo y e paralelos no eixo x
         else if (deltaY == 0 && deltaX == 1) {
-            oponente.vida -= ATAQUE_PARALELO;
+            reduzirVidaAtaqueParalelo(oponente);
             atacou = true;
         }
 
@@ -57,6 +57,12 @@ public class Jogador {
 
         return andou;
     }
+
+    protected Jogador reduzirVidaAtaqueParalelo(Jogador oponente) {
+        oponente.vida -= ATAQUE_PARALELO;
+        return oponente;
+    }
+
 
     private boolean isDirecaoNorte(Direcao direcao) {
         return direcao == Direcao.NORTE && y - 1 >= MINIMO_TABULEIRO;
