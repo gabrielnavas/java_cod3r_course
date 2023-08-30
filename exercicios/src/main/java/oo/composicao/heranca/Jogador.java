@@ -4,8 +4,39 @@ public class Jogador {
     int x;
     int y;
 
+    int vida;
+
     final static int MAXIMO_TABULEIRO = 100;
     final static int MINIMO_TABULEIRO = 0;
+
+    final static int MAXIMO_VIDA = 100;
+
+    final static int ATAQUE_PARALELO = 10;
+
+    Jogador() {
+        this.vida = MAXIMO_VIDA;
+    }
+
+    boolean atacar(Jogador oponente) {
+        boolean atacou = false;
+
+        int deltaX = Math.abs(x - oponente.x);
+        int deltaY = Math.abs(y - oponente.y);
+
+        // jogador e oponente está no mesmo eixo x e paralelos no eixo y
+        if (deltaX == 0 && deltaY == 1) {
+            oponente.vida -= ATAQUE_PARALELO;
+            atacou = true;
+        }
+
+        // jogador e oponente está no mesmo eixo y e paralelos no eixo x
+        else if (deltaY == 0 && deltaX == 1) {
+            oponente.vida -= ATAQUE_PARALELO;
+            atacou = true;
+        }
+
+        return atacou;
+    }
 
     boolean andar(Direcao direcao) {
         boolean andou = false;
