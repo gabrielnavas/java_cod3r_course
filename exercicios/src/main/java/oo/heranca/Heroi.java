@@ -1,4 +1,4 @@
-package oo.composicao.heranca;
+package oo.heranca;
 
 public class Heroi extends Jogador {
     static private int ATAQUE_PARALELO = Jogador.ATAQUE_PARALELO / 2;

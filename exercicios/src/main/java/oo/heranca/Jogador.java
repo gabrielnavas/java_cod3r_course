@@ -1,4 +1,4 @@
-package oo.composicao.heranca;
+package oo.heranca;
 
 public class Jogador {
     int x;
