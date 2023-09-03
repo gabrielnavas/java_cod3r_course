@@ -9,9 +9,14 @@ public class Jogador {
     final private static int MAXIMO_TABULEIRO = 100;
     final private static int MINIMO_TABULEIRO = 0;
 
-    final private static int MAXIMO_VIDA = 100;
+    final public static int MAXIMO_VIDA = 100;
 
     final protected static int ATAQUE_PARALELO = 10;
+
+    public Jogador(int vida) {
+        this.vida = vida;
+    }
+
 
     Jogador() {
         this.vida = MAXIMO_VIDA;

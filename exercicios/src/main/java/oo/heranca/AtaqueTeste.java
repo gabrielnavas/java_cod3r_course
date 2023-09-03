@@ -6,7 +6,7 @@ public class AtaqueTeste {
         jogador.x = 0;
         jogador.y = 0;
 
-        Jogador monstro = new Monstro();
+        Jogador monstro = new Monstro(Jogador.MAXIMO_VIDA + 20);
         monstro.x = 0;
         monstro.y = 1;
 
