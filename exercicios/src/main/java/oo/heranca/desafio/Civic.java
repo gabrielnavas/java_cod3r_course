@@ -4,6 +4,7 @@ public class Civic extends Carro {
     protected static final double VELOCIDADE_MAXIMA = Carro.VELOCIDADE_MAXIMA * 2 + 50;
     protected static final double RANGE_ACELERACAO = Carro.RANGE_ACELERACAO + 5;
 
+
     @Override
     protected boolean acelerar() {
         boolean acelerou = false;
