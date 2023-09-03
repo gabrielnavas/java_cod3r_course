@@ -2,20 +2,37 @@ package classe.desafio;
 
 public class Pessoa {
 
-    String nome;
-    double peso;
+    private String nome;
+    private double peso;
 
-    Pessoa() {
+    public Pessoa() {
         this("", 0.00);
     }
-    Pessoa(String nome, double peso) {
-        this.nome= nome;
+
+    public Pessoa(String nome, double peso) {
+        this.nome = nome;
         this.peso = peso;
     }
 
-    void comer(Comida comida) {
-        if(comida != null) {
-            this.peso += comida.peso;
+    public void comer(Comida comida) {
+        if (comida != null) {
+            this.peso += comida.getPeso();
         }
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double getPeso() {
+        return peso;
     }
 }

@@ -2,14 +2,31 @@ package classe.desafio;
 
 public class Comida {
 
-    String nome;
-    double peso;
+    private String nome;
+    private double peso;
 
-    Comida() {
+    public Comida() {
         this("", 0.00);
     }
-    Comida(String nome, double peso) {
-        this.nome= nome;
+
+    public Comida(String nome, double peso) {
+        this.nome = nome;
+        this.peso = peso;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 }

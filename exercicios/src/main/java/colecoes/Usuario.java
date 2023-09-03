@@ -3,7 +3,7 @@ package colecoes;
 import java.util.Objects;
 
 public class Usuario {
-    String nome;
+    private String nome;
 
     public Usuario(String nome) {
         this.nome = nome;

@@ -5,7 +5,7 @@ public class Heroi extends Jogador {
 
     @Override
     protected Jogador reduzirVidaAtaqueParalelo(Jogador oponente) {
-        oponente.vida -= Heroi.ATAQUE_PARALELO;
+        oponente.setVida(oponente.getVida() - Heroi.ATAQUE_PARALELO);
         return oponente;
     }
 }

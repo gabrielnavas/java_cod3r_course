@@ -1,21 +1,21 @@
 package classe;
 
 public class MinhaData {
-    int dia;
-    int mes;
-    int ano;
+    private int dia;
+    private int mes;
+    private int ano;
 
-    MinhaData() {
-        this(1,1,1970);
+    public MinhaData() {
+        this(1, 1, 1970);
     }
 
-    MinhaData(int dia, int mes, int ano) {
+    public MinhaData(int dia, int mes, int ano) {
         this.dia = dia;
         this.mes = mes;
         this.ano = ano;
     }
 
-    String obterDataFormatada(boolean formatoAmericano) {
+    public String obterDataFormatada(boolean formatoAmericano) {
         String dataResultante;
 
 
@@ -51,4 +51,18 @@ public class MinhaData {
 
         return dataResultante;
     }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+
 }

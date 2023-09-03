@@ -7,10 +7,10 @@ public class CompraTeste {
         c1.adicionarItem(new Item("HDD", 20, 200.00));
         c1.adicionarItem("Mouse", 30, 100.00);
 
-        System.out.println(c1.itens.size());
+        System.out.println(c1.getItens().size());
         System.out.println(c1.obterValorTotal());
 
         // um para um, relação bidirecional
-        System.out.println(c1.itens.get(0).compra.itens.get(0).nome);
+        System.out.println(c1.getItens().get(0).getCompra().getItens().get(0).getNome());
     }
 }

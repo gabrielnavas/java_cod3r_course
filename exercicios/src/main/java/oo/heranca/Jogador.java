@@ -1,10 +1,10 @@
 package oo.heranca;
 
 public class Jogador {
-    int x;
-    int y;
+    private int x;
+    private int y;
 
-    int vida;
+    private int vida;
 
     final private static int MAXIMO_TABULEIRO = 100;
     final private static int MINIMO_TABULEIRO = 0;
@@ -22,7 +22,7 @@ public class Jogador {
         this.vida = MAXIMO_VIDA;
     }
 
-    boolean atacar(Jogador oponente) {
+    public boolean atacar(Jogador oponente) {
         boolean atacou = false;
 
         int deltaX = Math.abs(x - oponente.x);
@@ -43,7 +43,7 @@ public class Jogador {
         return atacou;
     }
 
-    boolean andar(Direcao direcao) {
+    public boolean andar(Direcao direcao) {
         boolean andou = false;
 
         if (isDirecaoNorte(direcao)) {
@@ -83,5 +83,29 @@ public class Jogador {
 
     private boolean isDirecaoOeste(Direcao direcao) {
         return direcao == Direcao.OESTE && x - 1 >= MINIMO_TABULEIRO;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 }

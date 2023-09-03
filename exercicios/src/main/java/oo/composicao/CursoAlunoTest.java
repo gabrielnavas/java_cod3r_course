@@ -22,18 +22,18 @@ public class CursoAlunoTest {
         a1.adicionarCurso(c3);
 
         System.out.println("alunos do curso 1");
-        for (Aluno aluno : c1.alunos) {
+        for (Aluno aluno : c1.getAlunos()) {
             System.out.println(aluno);
         }
 
         System.out.println("cursos do aluno 1");
-        for (Curso curso : a1.cursos) {
+        for (Curso curso : a1.getCursos()) {
             System.out.println(curso);
         }
 
         Aluno alunoEncontrado = c1.obterAlunoPorNome("João");
         if (alunoEncontrado != null) {
-            System.out.printf("Aluno encontrado: %s\n", alunoEncontrado.nome);
+            System.out.printf("Aluno encontrado: %s\n", alunoEncontrado.getNome());
         }
     }
 }

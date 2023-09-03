@@ -2,33 +2,37 @@ package oo.composicao;
 
 public class Carro {
 
-    final Motor motor;
+    private final Motor motor;
 
-    Carro() {
+    public Carro() {
         motor = new Motor(this);
     }
 
     void acelerar() {
-        if (motor.fatorInjecao + 0.5 < 3) {
-            motor.fatorInjecao += 0.5;
+        if (motor.getFatorInjecao() + 0.5 < 3) {
+            motor.setFatorInjecao(motor.getFatorInjecao() + 0.5);
         }
     }
 
     void frear() {
-        if (motor.fatorInjecao - 0.5 > 0.5) {
-            motor.fatorInjecao -= 0.5;
+        if (motor.getFatorInjecao() - 0.5 > 0.5) {
+            motor.setFatorInjecao(motor.getFatorInjecao() - 0.5);
         }
     }
 
     void ligar() {
-        motor.ligado = true;
+        motor.setIsLigado(true);
     }
 
     void desligar() {
-        motor.ligado = false;
+        motor.setIsLigado(false);
     }
 
     boolean estaLigado() {
-        return motor.ligado;
+        return motor.isLigado();
+    }
+
+    public Motor getMotor() {
+        return motor;
     }
 }

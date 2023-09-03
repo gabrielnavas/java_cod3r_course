@@ -9,8 +9,8 @@ public class Ferrari extends Carro {
     protected boolean acelerar() {
         boolean acelerou = false;
 
-        if (velocidadeAtual + Ferrari.RANGE_ACELERACAO <= Ferrari.VELOCIDADE_MAXIMA) {
-            velocidadeAtual += Ferrari.RANGE_ACELERACAO;
+        if (getVelocidadeAtual() + Ferrari.RANGE_ACELERACAO <= Ferrari.VELOCIDADE_MAXIMA) {
+            setVelocidadeAtual(getVelocidadeAtual() + Ferrari.RANGE_ACELERACAO);
             acelerou = true;
         }
 
@@ -21,8 +21,8 @@ public class Ferrari extends Carro {
     protected boolean freiar() {
         boolean freiou = false;
 
-        if (velocidadeAtual - Ferrari.RANGE_ACELERACAO >= Ferrari.VELOCIDADE_MINIMA) {
-            velocidadeAtual -= Ferrari.RANGE_ACELERACAO;
+        if (getVelocidadeAtual() - Ferrari.RANGE_ACELERACAO >= Ferrari.VELOCIDADE_MINIMA) {
+            setVelocidadeAtual(getVelocidadeAtual() - Ferrari.RANGE_ACELERACAO);
             freiou = true;
         }
 

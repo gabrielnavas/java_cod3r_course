@@ -13,7 +13,7 @@ public class PistaTeste {
         ferrari.acelerar();
         ferrari.freiar();
 
-        System.out.printf("Velocidade do Civic %.2fKM/h\n", civic.velocidadeAtual);
-        System.out.printf("Velocidade da Ferrari %.2fKM/h\n", ferrari.velocidadeAtual);
+        System.out.printf("Velocidade do Civic %.2fKM/h\n", civic.getVelocidadeAtual());
+        System.out.printf("Velocidade da Ferrari %.2fKM/h\n", ferrari.getVelocidadeAtual());
     }
 }

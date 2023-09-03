@@ -1,10 +1,8 @@
 package classe;
 
-import java.util.Objects;
-
 public class Usuario {
-    String nome;
-    String email;
+    private String nome;
+    private String email;
 
     @Override
     public boolean equals(Object obj) {
@@ -19,5 +17,14 @@ public class Usuario {
     @Override
     public int hashCode() {
         return 0;
+    }
+
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

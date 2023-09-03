@@ -8,8 +8,8 @@ public class Civic extends Carro {
     protected boolean acelerar() {
         boolean acelerou = false;
 
-        if (velocidadeAtual + Civic.RANGE_ACELERACAO <= Civic.VELOCIDADE_MAXIMA) {
-            velocidadeAtual += Civic.RANGE_ACELERACAO;
+        if (getVelocidadeAtual() + Civic.RANGE_ACELERACAO <= Civic.VELOCIDADE_MAXIMA) {
+            setVelocidadeAtual(getVelocidadeAtual() + Civic.RANGE_ACELERACAO);
             acelerou = true;
         }
 
@@ -20,8 +20,8 @@ public class Civic extends Carro {
     protected boolean freiar() {
         boolean freiou = false;
 
-        if (velocidadeAtual - Civic.RANGE_ACELERACAO >= Civic.VELOCIDADE_MINIMA) {
-            velocidadeAtual -= Civic.RANGE_ACELERACAO;
+        if (getVelocidadeAtual() - Civic.RANGE_ACELERACAO >= Civic.VELOCIDADE_MINIMA) {
+            setVelocidadeAtual(getVelocidadeAtual() - Civic.RANGE_ACELERACAO);
             freiou = true;
         }
 

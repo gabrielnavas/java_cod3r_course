@@ -2,12 +2,13 @@ package classe;
 
 public class ValorPadrao {
 
-    String nome;
-    double preco;
+    private String nome;
+    private double preco;
 
-    final int x = 42;
+    private final int x = 42;
 
-    static int y;
+    public static int y;
+
     public static void main(String[] args) {
         // valor padrão
 
@@ -18,10 +19,22 @@ public class ValorPadrao {
         // Objetos -> null
 
         ValorPadrao vp = new ValorPadrao();
-        System.out.println(vp.preco); // 0.0
-        System.out.println(vp.nome); // null
-        System.out.println(vp.x); // precisa ser definido constantes
+        System.out.println(vp.getPreco()); // 0.0
+        System.out.println(vp.getNome()); // null
+        System.out.println(vp.getX()); // precisa ser definido constantes
 
         System.out.println(y); // 0
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public int getX() {
+        return x;
     }
 }

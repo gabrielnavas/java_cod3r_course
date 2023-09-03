@@ -2,18 +2,18 @@ package classe;
 
 public class AreaCirc {
 
-    double raio;
-    final static double PI = 3.1415;
+    private double raio;
+    private final static double PI = 3.1415;
 
-    AreaCirc(double raio) {
+    public AreaCirc(double raio) {
         this.raio = raio;
     }
 
-    double area() {
+    public double area() {
         return AreaCirc.PI * Math.pow(raio, 2);
     }
 
-    static double area(double raio) {
+    public static double area(double raio) {
         return AreaCirc.PI * Math.pow(raio, 2);
     }
 }
