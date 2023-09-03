@@ -5,14 +5,15 @@ public class PistaTeste {
         Carro civic = new Civic();
         Ferrari ferrari = new Ferrari(1);
 
-        civic.acelerar();
-        ferrari.acelerar();
+        System.out.printf("Civic acelerou? %b\n", civic.acelerar());
+        System.out.printf("Ferrari acelerou? %b\n", ferrari.acelerar());
 
         System.out.printf("Velocidade do Civic %.2fKM/h\n", civic.getVelocidadeAtual());
         System.out.printf("Velocidade da Ferrari %.2fKM/h\n", ferrari.getVelocidadeAtual());
 
         ferrari.ligarTurbo();
-        System.out.println(ferrari.acelerar());
+        ferrari.ligarAr();
+        System.out.printf("Ferrari acelerou? %b\n", ferrari.acelerar());
 
         System.out.printf("Velocidade do Civic %.2fKM/h\n", civic.getVelocidadeAtual());
         System.out.printf("Velocidade da Ferrari %.2fKM/h\n", ferrari.getVelocidadeAtual());
