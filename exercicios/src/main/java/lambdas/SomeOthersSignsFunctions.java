@@ -23,5 +23,8 @@ public class SomeOthersSignsFunctions {
 
         Predicate<Double> f = x -> x > 10.0;
         System.out.println(f.test(10.1));
+
+        IntBinaryOperator h = (x, y) -> x + y;
+        System.out.println(h.applyAsInt(2, 4));
     }
 }
