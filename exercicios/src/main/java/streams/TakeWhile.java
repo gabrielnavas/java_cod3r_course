@@ -4,6 +4,7 @@ import streams.models.Aluno;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class TakeWhile {
@@ -22,8 +23,10 @@ public class TakeWhile {
                 new Aluno("Letícia", 8.2)
         );
 
+        Predicate<Aluno> maiorQueDois = aluno -> aluno.getNota() > 2.0;
+
         List<Aluno> alunosMaiorQueDois = alunos.stream()
-                .takeWhile(a -> a.getNota() >= 2.0)
+                .takeWhile(maiorQueDois)
                 .collect(Collectors.toList());
 
         alunosMaiorQueDois.forEach(System.out::println);
