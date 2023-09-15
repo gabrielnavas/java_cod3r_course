@@ -1,4 +1,4 @@
-package excecao;
+package excecao.exemplos;
 
 import excecao.models.Aluno;
 

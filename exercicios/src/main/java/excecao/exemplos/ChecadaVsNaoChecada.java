@@ -1,4 +1,4 @@
-package excecao;
+package excecao.exemplos;
 
 public class ChecadaVsNaoChecada {
     public static void main(String[] args) {
