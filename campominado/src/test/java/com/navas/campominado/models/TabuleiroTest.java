@@ -55,7 +55,7 @@ class AssociarOsVizinhosTest {
     }
 
     @Test
-    void verificarQuantidadeVizinhoMaiorQueZero() {
+    void verificarQuantidadeVizinho() {
         int minimoDeVizinho = 3;
         int maximoDeVizinho = 8;
 
