@@ -167,6 +167,23 @@ class AbrirTest {
         assertFalse(aberto);
     }
 
+    @Test
+    void testeAbrirVizinhos() {
+        Campo[] vizinhos = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhos)
+                .forEach(campo::adicionarVizinho);
+        campo.abrir();
+        Arrays.stream(vizinhos).forEach(vizinho -> assertTrue(vizinho.isAberto()));
+    }
 
     @Test
     void testeAbrir() {
