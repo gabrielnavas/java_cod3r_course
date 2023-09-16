@@ -1,5 +1,6 @@
 package com.navas.campominado.models;
 
+import com.navas.campominado.exceptions.ExplosaoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -98,5 +99,53 @@ public class CampoTest {
                 "a vizinhaca não deveria ser segura, pois o " +
                         "primeiro vizinho da lista está minado");
 
+    }
+
+    @Test
+    void testeAbrirMarcado() {
+        Campo[] vizinhos = {
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhos)
+                .forEach(campo::adicionarVizinho);
+        campo.alternarMarcacao();
+        boolean aberto = campo.abrir();
+        assertFalse(aberto);
+    }
+
+    @Test
+    void testeAbrirMinado() {
+        campo = new Campo(campo.getLinha(), campo.getColuna(), true);
+        assertThrows(ExplosaoException.class, () -> {
+            boolean aberto = campo.abrir();
+            assertFalse(aberto);
+        });
+    }
+
+    @Test
+    void testeAbrirMarcadoAberto() {
+        campo.alternarMarcacao();
+        boolean aberto = campo.abrir();
+        assertFalse(aberto);
+    }
+
+    @Test
+    void testeAbrirAberto() {
+        campo.abrir();
+        boolean aberto = campo.abrir();
+        assertFalse(aberto);
+    }
+
+    @Test
+    void testeAbrir() {
+        boolean aberto = campo.abrir();
+        assertTrue(aberto);
     }
 }

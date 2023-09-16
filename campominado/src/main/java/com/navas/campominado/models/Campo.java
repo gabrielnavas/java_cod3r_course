@@ -25,10 +25,6 @@ public class Campo {
         this.linha = linha;
         this.coluna = coluna;
         this.minado = minado;
-
-        if (minado) {
-            aberto = true;
-        }
     }
 
 
