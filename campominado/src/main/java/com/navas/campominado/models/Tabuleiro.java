@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class Tabuleiro {
 
     // TODO: imnplementar usando matrix => List<List<Campo>> campos = new ArrayList<>();
-    private final List<Campo> campos = new ArrayList<>();
+    private final List<Campo> campos;
     private int linhas;
     private int colunas;
     private int minas;
@@ -18,6 +18,19 @@ public class Tabuleiro {
         this.linhas = linhas;
         this.colunas = colunas;
         this.minas = minas;
+        this.campos = new ArrayList<>();
+
+        gerarCampos();
+        associarOsVizinhos();
+        sortearMinas();
+    }
+
+
+    public Tabuleiro(int linhas, int colunas, int minas, List<Campo> campos) {
+        this.linhas = linhas;
+        this.colunas = colunas;
+        this.minas = minas;
+        this.campos = campos;
 
         gerarCampos();
         associarOsVizinhos();
@@ -71,5 +84,9 @@ public class Tabuleiro {
                     campo.ifPresent(value -> campos[linha][coluna] = value);
                 }));
         return campos;
+    }
+
+    public boolean objetivoAlcando() {
+        return campos.stream().allMatch(Campo::objetivoAlcancado);
     }
 }

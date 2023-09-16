@@ -32,11 +32,10 @@ class GerarCamposTest {
     @Test
     void verificarNaoNullCamposDoTabuleiro() {
         Campo[][] campos = tabuleiro.getCampos();
-        IntStream.range(0, linhas).forEach(linha -> {
-            IntStream.range(0, colunas).forEach(coluna -> {
-                assertNotNull(campos[linha][coluna]);
-            });
-        });
+        IntStream.range(0, linhas).forEach(linha ->
+                IntStream.range(0, colunas).forEach(coluna -> {
+                    assertNotNull(campos[linha][coluna]);
+                }));
     }
 }
 
@@ -103,5 +102,27 @@ class SortearMinasTest {
         }
 
         assertEquals(minados, quantidadeMinados);
+    }
+}
+
+class ObjetivoAlcandoTabuleiroTest {
+    private Tabuleiro tabuleiro;
+
+    @BeforeEach
+    void setup() {
+        int linhas = 10;
+        int colunas = 10;
+        int minados = 20;
+        tabuleiro = new Tabuleiro(linhas, colunas, minados);
+    }
+
+    @Test
+    public void objetivoNaoAlcando() {
+        assertFalse(tabuleiro.objetivoAlcando());
+    }
+
+    @Test
+    public void objetivoAlcando() {
+        // TODO: fazer...
     }
 }
