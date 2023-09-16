@@ -313,3 +313,27 @@ class ObjetivoAlcandoTest {
         assertTrue(campo.objetivoAlcancado());
     }
 }
+
+class MinasnaVizinhacaTest {
+    private Campo campo;
+    private Campo vizinho;
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+        vizinho = new Campo(3, 2);
+        campo.adicionarVizinho(vizinho);
+    }
+
+    @Test
+    void testeUmaMinaNaVizinhaca() {
+        vizinho.minar();
+        assertEquals(campo.minasNaVizinhaca(), 1);
+    }
+
+
+    @Test
+    void testenenhumaMinaNaVizinhaca() {
+        assertEquals(campo.minasNaVizinhaca(), 0);
+    }
+}

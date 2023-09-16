@@ -101,7 +101,7 @@ public class Campo {
 
     long minasNaVizinhaca() {
         return vizinhos.stream()
-                .filter(Campo::isMarcado)
+                .filter(Campo::isMinado)
                 .count();
     }
 
