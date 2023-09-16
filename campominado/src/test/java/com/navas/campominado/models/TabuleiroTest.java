@@ -70,3 +70,38 @@ class AssociarOsVizinhosTest {
                 }));
     }
 }
+
+class SortearMinasTest {
+
+    private Tabuleiro tabuleiro;
+
+    private int linhas;
+    private int colunas;
+
+    private int minados;
+
+    @BeforeEach
+    void setup() {
+        linhas = 10;
+        colunas = 10;
+        minados = 20;
+        tabuleiro = new Tabuleiro(linhas, colunas, minados);
+    }
+
+    @Test
+    void quantidadeDeMinas() {
+        Campo[][] campos = tabuleiro.getCampos();
+
+        int quantidadeMinados = 0;
+
+        for (int i = 0; i < campos.length; i++) {
+            for (int j = 0; j < campos[0].length; j++) {
+                if (campos[i][j].isMinado()) {
+                    quantidadeMinados++;
+                }
+            }
+        }
+
+        assertEquals(minados, quantidadeMinados);
+    }
+}

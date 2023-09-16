@@ -3,10 +3,12 @@ package com.navas.campominado.models;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Tabuleiro {
 
+    // TODO: imnplementar usando matrix => List<List<Campo>> campos = new ArrayList<>();
     private final List<Campo> campos = new ArrayList<>();
     private int linhas;
     private int colunas;
@@ -35,6 +37,26 @@ public class Tabuleiro {
     }
 
     private void sortearMinas() {
+        int minasArmadas = 0;
+
+        do {
+            int linha = new Random().nextInt(linhas);
+            int coluna = new Random().nextInt(colunas);
+
+            Optional<Campo> campoOptional = campos
+                    .stream()
+                    .filter(campoN -> campoN.getLinha() == linha
+                            && campoN.getColuna() == coluna
+                    ).findFirst();
+
+            if (campoOptional.isPresent()) {
+                Campo campo = campoOptional.get();
+                if (!campo.isMinado()) {
+                    campo.minar();
+                    minasArmadas++;
+                }
+            }
+        } while (minasArmadas < minas);
     }
 
     public Campo[][] getCampos() {
