@@ -122,7 +122,23 @@ class AlterarMarcacaoTest {
     }
 }
 
-public class CampoTest {
+class MinarTest {
+
+    private Campo campo;
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+    }
+
+    @Test
+    void testeMinar() {
+        campo.minar();
+        assertTrue(campo.isMinado());
+    }
+}
+
+class AbrirTest {
 
     private Campo campo;
 
@@ -154,17 +170,5 @@ public class CampoTest {
         campo.abrir();
         boolean aberto = campo.abrir();
         assertFalse(aberto);
-    }
-
-    @Test
-    void testeAbrir() {
-        boolean aberto = campo.abrir();
-        assertTrue(aberto);
-    }
-
-    @Test
-    void testeMinar() {
-        campo.minar();
-        assertTrue(campo.isMinado());
     }
 }
