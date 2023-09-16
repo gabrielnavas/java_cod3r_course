@@ -51,18 +51,14 @@ class AdicionarVizinhoTest {
     }
 }
 
-class VizinhosTest {
+class VizinhacaSeguraTest {
     private Campo campo;
-
+    private Campo[] vizinhos;
 
     @BeforeEach
     void setup() {
         campo = new Campo(3, 3);
-    }
-
-    @Test
-    void testeVizinhacaSegura() {
-        Campo[] vizinhos = {
+        vizinhos = new Campo[]{
                 new Campo(3, 2),
                 new Campo(3, 4),
                 new Campo(2, 3),
@@ -74,6 +70,10 @@ class VizinhosTest {
         };
         Arrays.stream(vizinhos)
                 .forEach(campo::adicionarVizinho);
+    }
+
+    @Test
+    void testeVizinhacaSegura() {
         boolean vizinhacaSegura = campo.vizinhacaSegura();
         String messageAssert = "a vizinhaca deveria ser segura, pois nenhum dos vizinhos está minado";
         assertTrue(vizinhacaSegura, messageAssert);
@@ -82,19 +82,7 @@ class VizinhosTest {
 
     @Test
     void testeVizinhacaInsegura() {
-        Campo[] vizinhos = {
-                new Campo(3, 2),
-                new Campo(3, 4),
-                new Campo(2, 3),
-                new Campo(4, 3),
-                new Campo(4, 4),
-                new Campo(2, 2),
-                new Campo(2, 4),
-                new Campo(4, 2)
-        };
         vizinhos[0].minar();
-        Arrays.stream(vizinhos)
-                .forEach(campo::adicionarVizinho);
         boolean vizinhacaSegura = campo.vizinhacaSegura();
         assertFalse(vizinhacaSegura,
                 "a vizinhaca não deveria ser segura, pois o " +
