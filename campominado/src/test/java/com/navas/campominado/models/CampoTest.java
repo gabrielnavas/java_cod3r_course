@@ -337,3 +337,36 @@ class MinasnaVizinhacaTest {
         assertEquals(campo.minasNaVizinhaca(), 0);
     }
 }
+
+class ReiniciarTest {
+    private Campo campo;
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+    }
+
+    @Test
+    void testeReiniciarDepoisDeMinar() {
+        campo.minar();
+        campo.reiniciar();
+        boolean reiniciado = !campo.isMinado() && !campo.isAberto() && !campo.isMarcado();
+        assertTrue(reiniciado);
+    }
+
+    @Test
+    void testeReiniciarDepoisDeAbrir() {
+        campo.abrir();
+        campo.reiniciar();
+        boolean reiniciado = !campo.isMinado() && !campo.isAberto() && !campo.isMarcado();
+        assertTrue(reiniciado);
+    }
+
+    @Test
+    void testeReiniciarDepoisDeMarcar() {
+        campo.alternarMarcacao();
+        campo.reiniciar();
+        boolean reiniciado = !campo.isMinado() && !campo.isAberto() && !campo.isMarcado();
+        assertTrue(reiniciado);
+    }
+}

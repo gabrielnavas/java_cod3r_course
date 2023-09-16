@@ -66,7 +66,9 @@ public class Campo {
     }
 
     void minar() {
-        minado = true;
+        if (!aberto) {
+            minado = true;
+        }
     }
 
     public int getColuna() {
