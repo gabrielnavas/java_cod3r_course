@@ -127,9 +127,7 @@ class MinarTest {
 }
 
 class AbrirTest {
-
     private Campo campo;
-
 
     @BeforeEach
     void setup() {
@@ -166,10 +164,17 @@ class AbrirTest {
         boolean aberto = campo.abrir();
         assertFalse(aberto);
     }
+}
 
-    @Test
-    void testeAbrirVizinhos() {
-        Campo[] vizinhos = new Campo[]{
+
+class AbrirComVizinhoTest {
+    private Campo campo;
+    private Campo[] vizinhos;
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+        vizinhos = new Campo[]{
                 new Campo(3, 2),
                 new Campo(3, 4),
                 new Campo(2, 3),
@@ -181,25 +186,18 @@ class AbrirTest {
         };
         Arrays.stream(vizinhos)
                 .forEach(campo::adicionarVizinho);
+    }
+
+    @Test
+    void testeAbrirVizinhos() {
         campo.abrir();
         Arrays.stream(vizinhos).forEach(vizinho -> assertTrue(vizinho.isAberto()));
     }
 
     @Test
     void testeAbrir() {
-        Campo[] vizinhos = new Campo[]{
-                new Campo(3, 2),
-                new Campo(3, 4),
-                new Campo(2, 3),
-                new Campo(4, 3),
-                new Campo(4, 4),
-                new Campo(2, 2),
-                new Campo(2, 4),
-                new Campo(4, 2)
-        };
-        Arrays.stream(vizinhos)
-                .forEach(campo::adicionarVizinho);
         boolean aberto = campo.abrir();
         assertTrue(aberto);
     }
 }
+
