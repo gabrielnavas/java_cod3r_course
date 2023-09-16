@@ -370,3 +370,73 @@ class ReiniciarTest {
         assertTrue(reiniciado);
     }
 }
+
+class ToStringTest {
+    private Campo campo;
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+    }
+
+    @Test
+    void testeMarcadoRetornaX() {
+        campo.alternarMarcacao();
+        assertEquals(campo.toString(), "x");
+    }
+
+
+    @Test
+    void testeAbertoMinadoRetornaAsterisco() {
+        ExplosaoException ex;
+        ex = assertThrows(ExplosaoException.class, () -> {
+            campo.minar();
+            campo.abrir();
+        });
+        assertEquals(ex.getMessage(), "você clicou num campo minado");
+        assertEquals(campo.toString(), "*");
+    }
+
+    @Test
+    void testeAbertoComOitoMinasVizinhas() {
+        Campo[] vizinhaca = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhaca).forEach(vizinho -> {
+            vizinho.minar();
+            campo.adicionarVizinho(vizinho);
+        });
+        campo.abrir();
+        assertEquals(campo.toString(), "8");
+    }
+
+    @Test
+    void testeAbertoComNenhumaMinaVizinha() {
+        Campo[] vizinhaca = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhaca).forEach(vizinho -> campo.adicionarVizinho(vizinho));
+        campo.abrir();
+        assertEquals(campo.toString(), " ");
+    }
+
+
+    @Test
+    void testeNemMarcadoNemAberto() {
+        assertEquals(campo.toString(), "?");
+    }
+}
