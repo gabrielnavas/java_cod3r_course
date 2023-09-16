@@ -280,3 +280,36 @@ class NaoAbrirVizinhoDoVizinhoTest {
     }
 }
 
+class ObjetivoAlcandoTest {
+    private Campo campo;
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+    }
+
+    @Test
+    void testeObjetivoNaoAlcando() {
+        assertFalse(campo.objetivoAlcancado());
+    }
+
+    @Test
+    void testeObjetivoNaoAlcandoMinado() {
+        boolean minado = campo.isMinado();
+        assertFalse(minado && campo.objetivoAlcancado());
+    }
+
+    @Test
+    void testeObjetivolcandoAberto() {
+        boolean aberto = campo.abrir();
+        assertTrue(aberto && campo.objetivoAlcancado());
+    }
+
+
+    @Test
+    void testeObjetivoAlcandoMinadoMarcado() {
+        campo.minar();
+        campo.alternarMarcacao();
+        assertTrue(campo.objetivoAlcancado());
+    }
+}

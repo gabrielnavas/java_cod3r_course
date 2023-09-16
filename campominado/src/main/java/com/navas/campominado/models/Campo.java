@@ -92,4 +92,39 @@ public class Campo {
     public List<Campo> getVizinhos() {
         return vizinhos.stream().toList();
     }
+
+    boolean objetivoAlcancado() {
+        boolean desvendado = !minado && aberto;
+        boolean protegido = minado && marcado;
+        return desvendado || protegido;
+    }
+
+    long minasNaVizinhaca() {
+        return vizinhos.stream()
+                .filter(Campo::isMarcado)
+                .count();
+    }
+
+    void reiniciar() {
+        minado = false;
+        aberto = false;
+        marcado = false;
+    }
+
+    public String toString() {
+        if (marcado) {
+            return "x";
+        } else if (aberto) {
+            if (minado) {
+                return "*";
+            }
+            long minasNaVizinhaca = minasNaVizinhaca();
+            if (minasNaVizinhaca > 0) {
+                return Long.toString(minasNaVizinhaca);
+            } else {
+                return " ";
+            }
+        }
+        return "?";
+    }
 }
