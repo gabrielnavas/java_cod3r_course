@@ -108,13 +108,6 @@ class AlterarMarcacaoTest {
         campo.alternarMarcacao();
         assertFalse(campo.isMarcado(), "marcado deveria ser false");
     }
-
-    @Test
-    void testeAbrirMarcado() {
-        campo.alternarMarcacao();
-        boolean aberto = campo.abrir();
-        assertFalse(aberto);
-    }
 }
 
 class MinarTest {
@@ -163,6 +156,13 @@ class AbrirTest {
     @Test
     void testeAbrirAberto() {
         campo.abrir();
+        boolean aberto = campo.abrir();
+        assertFalse(aberto);
+    }
+
+    @Test
+    void testeAbrirMarcado() {
+        campo.alternarMarcacao();
         boolean aberto = campo.abrir();
         assertFalse(aberto);
     }
