@@ -10,19 +10,14 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VizinhosTest {
+class AdicionarVizinhoTest {
+    Map<Campo, Boolean> casosTeste;
     private Campo campo;
-
 
     @BeforeEach
     void setup() {
         campo = new Campo(3, 3);
-    }
-
-
-    @Test
-    void testeVizinhoReal() {
-        Map<Campo, Boolean> casosTeste = new HashMap<>() {{
+        casosTeste = new HashMap<>() {{
             put(new Campo(3, 2), true);
             put(new Campo(3, 4), true);
             put(new Campo(2, 3), true);
@@ -43,14 +38,26 @@ class VizinhosTest {
             put(new Campo(1, 5), false);
             put(new Campo(5, 1), false);
         }};
+    }
 
+    @Test
+    void testeVizinhoReal() {
         for (Map.Entry<Campo, Boolean> casoTeste : casosTeste.entrySet()) {
             boolean adicionado = campo.adicionarVizinho(casoTeste.getKey());
-
             String messageAssert = String.format("campo x=%d, y=%d",
                     casoTeste.getKey().getLinha(), casoTeste.getKey().getColuna());
             assertEquals(adicionado, casoTeste.getValue(), messageAssert);
         }
+    }
+}
+
+class VizinhosTest {
+    private Campo campo;
+
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
     }
 
     @Test
