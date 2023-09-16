@@ -83,7 +83,7 @@ public class CampoTest {
     @Test
     void testeVizinhacaInsegura() {
         Campo[] vizinhos = {
-                new Campo(3, 2, true),
+                new Campo(3, 2),
                 new Campo(3, 4),
                 new Campo(2, 3),
                 new Campo(4, 3),
@@ -92,6 +92,7 @@ public class CampoTest {
                 new Campo(2, 4),
                 new Campo(4, 2)
         };
+        vizinhos[0].minar();
         Arrays.stream(vizinhos)
                 .forEach(campo::adicionarVizinho);
         boolean vizinhacaSegura = campo.vizinhacaSegura();
@@ -103,18 +104,6 @@ public class CampoTest {
 
     @Test
     void testeAbrirMarcado() {
-        Campo[] vizinhos = {
-                new Campo(3, 2),
-                new Campo(3, 4),
-                new Campo(2, 3),
-                new Campo(4, 3),
-                new Campo(4, 4),
-                new Campo(2, 2),
-                new Campo(2, 4),
-                new Campo(4, 2)
-        };
-        Arrays.stream(vizinhos)
-                .forEach(campo::adicionarVizinho);
         campo.alternarMarcacao();
         boolean aberto = campo.abrir();
         assertFalse(aberto);
@@ -122,7 +111,8 @@ public class CampoTest {
 
     @Test
     void testeAbrirMinado() {
-        campo = new Campo(campo.getLinha(), campo.getColuna(), true);
+        campo = new Campo(campo.getLinha(), campo.getColuna());
+        campo.minar();
         assertThrows(ExplosaoException.class, () -> {
             boolean aberto = campo.abrir();
             assertFalse(aberto);
@@ -147,5 +137,11 @@ public class CampoTest {
     void testeAbrir() {
         boolean aberto = campo.abrir();
         assertTrue(aberto);
+    }
+
+    @Test
+    void testeMinar() {
+        campo.minar();
+        assertTrue(campo.isMinado());
     }
 }

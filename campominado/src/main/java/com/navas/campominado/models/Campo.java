@@ -9,24 +9,15 @@ public class Campo {
 
     private final int linha;
     private final int coluna;
+    private final List<Campo> vizinhos = new ArrayList<>();
     private boolean minado = false;
-    ;
     private boolean aberto = false;
     private boolean marcado = false;
-
-    private List<Campo> vizinhos = new ArrayList<>();
 
     Campo(int linha, int coluna) {
         this.linha = linha;
         this.coluna = coluna;
     }
-
-    Campo(int linha, int coluna, boolean minado) {
-        this.linha = linha;
-        this.coluna = coluna;
-        this.minado = minado;
-    }
-
 
     boolean adicionarVizinho(Campo vizinho) {
         boolean linhaDiferente = linha != vizinho.getLinha();
@@ -74,6 +65,10 @@ public class Campo {
         return vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
     }
 
+    void minar() {
+        minado = true;
+    }
+
     public int getColuna() {
         return coluna;
     }
@@ -84,5 +79,9 @@ public class Campo {
 
     public boolean isMarcado() {
         return marcado;
+    }
+
+    public boolean isMinado() {
+        return minado;
     }
 }
