@@ -96,8 +96,7 @@ class VizinhosTest {
     }
 }
 
-public class CampoTest {
-
+class AlterarMarcacaoTest {
     private Campo campo;
 
 
@@ -120,6 +119,17 @@ public class CampoTest {
         campo.alternarMarcacao();
         boolean aberto = campo.abrir();
         assertFalse(aberto);
+    }
+}
+
+public class CampoTest {
+
+    private Campo campo;
+
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
     }
 
     @Test
