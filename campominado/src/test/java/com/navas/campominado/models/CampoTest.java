@@ -166,4 +166,23 @@ class AbrirTest {
         boolean aberto = campo.abrir();
         assertFalse(aberto);
     }
+
+
+    @Test
+    void testeAbrir() {
+        Campo[] vizinhos = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhos)
+                .forEach(campo::adicionarVizinho);
+        boolean aberto = campo.abrir();
+        assertTrue(aberto);
+    }
 }
