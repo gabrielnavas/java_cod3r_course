@@ -88,4 +88,8 @@ public class Campo {
     public boolean isAberto() {
         return aberto;
     }
+
+    public List<Campo> getVizinhos() {
+        return vizinhos.stream().toList();
+    }
 }

@@ -204,9 +204,79 @@ class AbrirComVizinhoTest {
     }
 
     @Test
+    void testeNaoAbrirVizinhos() {
+        vizinhos[0].minar();
+        campo.abrir();
+        Arrays.stream(vizinhos).forEach(vizinho -> assertFalse(vizinho.isAberto()));
+    }
+
+    @Test
     void testeAbrir() {
         boolean aberto = campo.abrir();
         assertTrue(aberto);
+    }
+}
+
+
+class NaoAbrirVizinhoDoVizinhoTest {
+    private Campo campo;
+    private Campo[] vizinhacaDoPrimeiro;
+    private Campo[] vizinhacaDoSegundo;
+
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+
+        Campo[] vizinhaca = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+
+        vizinhacaDoPrimeiro = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+        };
+
+        vizinhacaDoSegundo = new Campo[]{
+                new Campo(3, 2),
+                new Campo(3, 4),
+        };
+
+        Arrays.stream(vizinhaca)
+                .forEach(campo::adicionarVizinho);
+
+        Arrays.stream(vizinhacaDoPrimeiro)
+                .forEach(vizinhaca[0]::adicionarVizinho);
+
+        Arrays.stream(vizinhacaDoSegundo)
+                .forEach(vizinhaca[1]::adicionarVizinho);
+    }
+
+    @Test
+    void testeAbrirVizinhosDoPrimeiro() {
+        vizinhacaDoPrimeiro[0].minar();
+        campo.abrir();
+        campo.getVizinhos().forEach(vizinho -> assertTrue(vizinho.isAberto()));
+        campo.getVizinhos().get(0)
+                .getVizinhos()
+                .forEach(vizinho -> assertFalse(vizinho.isAberto()));
+    }
+
+    @Test
+    void testeAbrirVizinhosDoSegundo() {
+        vizinhacaDoSegundo[0].minar();
+        campo.abrir();
+        campo.getVizinhos().forEach(vizinho -> assertTrue(vizinho.isAberto()));
+        campo.getVizinhos().get(1)
+                .getVizinhos()
+                .forEach(vizinho -> assertFalse(vizinho.isAberto()));
     }
 }
 
