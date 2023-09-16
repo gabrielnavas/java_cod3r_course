@@ -9,7 +9,8 @@ public class Campo {
 
     private final int linha;
     private final int coluna;
-    private boolean minado = false;;
+    private boolean minado = false;
+    ;
     private boolean aberto = false;
     private boolean marcado = false;
 
@@ -20,6 +21,13 @@ public class Campo {
         this.coluna = coluna;
     }
 
+    Campo(int linha, int coluna, boolean minado) {
+        this.linha = linha;
+        this.coluna = coluna;
+        this.minado = minado;
+    }
+
+
     boolean adicionarVizinho(Campo vizinho) {
         boolean linhaDiferente = linha != vizinho.getLinha();
         boolean colunaDiferente = coluna != vizinho.getColuna();
@@ -29,9 +37,9 @@ public class Campo {
         int deltaColuna = Math.abs(coluna - vizinho.getColuna());
         int deltaGeral = deltaLinha + deltaColuna;
 
-        if(!diagonal && deltaGeral == 1) {
+        if (!diagonal && deltaGeral == 1) {
             return vizinhos.add(vizinho);
-        } else if(diagonal && deltaGeral == 2) {
+        } else if (diagonal && deltaGeral == 2) {
             return vizinhos.add(vizinho);
         }
 
@@ -39,20 +47,20 @@ public class Campo {
     }
 
     void alternarMarcacao() {
-        if(!aberto) {
+        if (!aberto) {
             marcado = !marcado;
         }
     }
 
     boolean abrir() {
-        if(!marcado && !aberto) {
+        if (!marcado && !aberto) {
             aberto = true;
 
-            if(minado) {
+            if (minado) {
                 throw new ExplosaoException("você clicou num campo minado");
             }
 
-            if(vizinhaSegura()) {
+            if (vizinhacaSegura()) {
                 vizinhos.forEach(Campo::abrir);
             }
 
@@ -62,7 +70,7 @@ public class Campo {
         return false;
     }
 
-    boolean vizinhaSegura() {
+    boolean vizinhacaSegura() {
         return vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
     }
 

@@ -3,7 +3,9 @@ package com.navas.campominado.models;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +22,7 @@ public class CampoTest {
 
     @Test
     void testeVizinhoReal() {
-        Map<Campo, Boolean> casosTeste = new HashMap<>(){{
+        Map<Campo, Boolean> casosTeste = new HashMap<>() {{
             put(new Campo(3, 2), true);
             put(new Campo(3, 4), true);
             put(new Campo(2, 3), true);
@@ -42,7 +44,7 @@ public class CampoTest {
             put(new Campo(5, 1), false);
         }};
 
-        for (Map.Entry<Campo, Boolean> casoTeste: casosTeste.entrySet()) {
+        for (Map.Entry<Campo, Boolean> casoTeste : casosTeste.entrySet()) {
             boolean adicionado = campo.adicionarVizinho(casoTeste.getKey());
             assertEquals(adicionado, casoTeste.getValue(), String.format("campo x=%d, y=%d", casoTeste.getKey().getLinha(), casoTeste.getKey().getColuna()));
         }
@@ -55,5 +57,46 @@ public class CampoTest {
         assertTrue(campo.isMarcado(), "marcado deveria ser true");
         campo.alternarMarcacao();
         assertFalse(campo.isMarcado(), "marcado deveria ser false");
+    }
+
+    @Test
+    void testeVizinhacaSegura() {
+        Campo[] vizinhos = {
+                new Campo(3, 2),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhos)
+                .forEach(campo::adicionarVizinho);
+        boolean vizinhacaSegura = campo.vizinhacaSegura();
+        assertTrue(vizinhacaSegura,
+                "a vizinhaca deveria ser segura, pois nenhum dos vizinhos está minado");
+
+    }
+
+    @Test
+    void testeVizinhacaInsegura() {
+        Campo[] vizinhos = {
+                new Campo(3, 2, true),
+                new Campo(3, 4),
+                new Campo(2, 3),
+                new Campo(4, 3),
+                new Campo(4, 4),
+                new Campo(2, 2),
+                new Campo(2, 4),
+                new Campo(4, 2)
+        };
+        Arrays.stream(vizinhos)
+                .forEach(campo::adicionarVizinho);
+        boolean vizinhacaSegura = campo.vizinhacaSegura();
+        assertFalse(vizinhacaSegura,
+                "a vizinhaca não deveria ser segura, pois o " +
+                        "primeiro vizinho da lista está minado");
+
     }
 }
