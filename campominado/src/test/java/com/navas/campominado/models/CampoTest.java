@@ -127,7 +127,9 @@ class MinarTest {
 }
 
 class AbrirTest {
+
     private Campo campo;
+
 
     @BeforeEach
     void setup() {
@@ -164,12 +166,19 @@ class AbrirTest {
         boolean aberto = campo.abrir();
         assertFalse(aberto);
     }
+
+    @Test
+    void testeAbrir() {
+        boolean aberto = campo.abrir();
+        assertTrue(aberto);
+    }
 }
 
 
 class AbrirComVizinhoTest {
     private Campo campo;
     private Campo[] vizinhos;
+
 
     @BeforeEach
     void setup() {
