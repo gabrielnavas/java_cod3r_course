@@ -10,8 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CampoTest {
-
+class VizinhosTest {
     private Campo campo;
 
 
@@ -47,17 +46,11 @@ public class CampoTest {
 
         for (Map.Entry<Campo, Boolean> casoTeste : casosTeste.entrySet()) {
             boolean adicionado = campo.adicionarVizinho(casoTeste.getKey());
-            assertEquals(adicionado, casoTeste.getValue(), String.format("campo x=%d, y=%d", casoTeste.getKey().getLinha(), casoTeste.getKey().getColuna()));
-        }
-    }
 
-    @Test
-    void testeAlterarMarcacao() {
-        assertFalse(campo.isMarcado(), "marcado deveria ser false");
-        campo.alternarMarcacao();
-        assertTrue(campo.isMarcado(), "marcado deveria ser true");
-        campo.alternarMarcacao();
-        assertFalse(campo.isMarcado(), "marcado deveria ser false");
+            String messageAssert = String.format("campo x=%d, y=%d",
+                    casoTeste.getKey().getLinha(), casoTeste.getKey().getColuna());
+            assertEquals(adicionado, casoTeste.getValue(), messageAssert);
+        }
     }
 
     @Test
@@ -75,8 +68,8 @@ public class CampoTest {
         Arrays.stream(vizinhos)
                 .forEach(campo::adicionarVizinho);
         boolean vizinhacaSegura = campo.vizinhacaSegura();
-        assertTrue(vizinhacaSegura,
-                "a vizinhaca deveria ser segura, pois nenhum dos vizinhos está minado");
+        String messageAssert = "a vizinhaca deveria ser segura, pois nenhum dos vizinhos está minado";
+        assertTrue(vizinhacaSegura, messageAssert);
 
     }
 
@@ -100,6 +93,26 @@ public class CampoTest {
                 "a vizinhaca não deveria ser segura, pois o " +
                         "primeiro vizinho da lista está minado");
 
+    }
+}
+
+public class CampoTest {
+
+    private Campo campo;
+
+
+    @BeforeEach
+    void setup() {
+        campo = new Campo(3, 3);
+    }
+
+    @Test
+    void testeAlterarMarcacao() {
+        assertFalse(campo.isMarcado(), "marcado deveria ser false");
+        campo.alternarMarcacao();
+        assertTrue(campo.isMarcado(), "marcado deveria ser true");
+        campo.alternarMarcacao();
+        assertFalse(campo.isMarcado(), "marcado deveria ser false");
     }
 
     @Test
