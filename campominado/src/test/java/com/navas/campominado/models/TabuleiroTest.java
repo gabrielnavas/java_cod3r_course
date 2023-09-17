@@ -149,3 +149,65 @@ class ReiniciarTabuleiroTest {
     }
 }
 
+
+class ToStringTabuleiroTest {
+    private Tabuleiro tabuleiro;
+
+    @BeforeEach
+    void setup() {
+        int linhas = 10;
+        int colunas = 10;
+        int minados = 20;
+        tabuleiro = new Tabuleiro(linhas, colunas, minados);
+    }
+
+    @Test
+    public void tamanhoTabuleiro() {
+        String tabuleiroPrint = tabuleiro.toString();
+        String[] linhasTabuleiro = tabuleiroPrint.split("\n");
+        String[] primeiraColuna = linhasTabuleiro[0].split(" ");
+        assertEquals(linhasTabuleiro.length, 11);
+        assertEquals(primeiraColuna.length, 12);
+    }
+
+
+    @Test
+    public void verificarNumeracaoSuperiorTabuleiro() {
+        String tabuleiroPrint = tabuleiro.toString();
+
+        String[] linhasTabuleiro = tabuleiroPrint.split("\n");
+        String[] primeiraColuna = linhasTabuleiro[0].split(" ");
+
+        assertEquals(primeiraColuna[0], "");
+        assertEquals(primeiraColuna[1], "");
+
+        int numeros = 2;
+        while (numeros < linhasTabuleiro.length) {
+            String expected = String.format("%d", numeros - 1);
+            String received = primeiraColuna[numeros];
+            assertEquals(received, expected);
+            ++numeros;
+        }
+    }
+
+
+    @Test
+    public void verificarNumeracaoLateralTabuleiro() {
+        String tabuleiroPrint = tabuleiro.toString();
+        String[] linhasTabuleiro = tabuleiroPrint.split("\n");
+
+        String primeiroIndexPrimeiraLinha = linhasTabuleiro[0].split(" ")[0];
+        assertEquals(primeiroIndexPrimeiraLinha, "");
+
+        int numeros = 1;
+        while (numeros < linhasTabuleiro.length) {
+            String[] colunasTabuleiro = linhasTabuleiro[numeros].split(" ");
+            String expected = String.format("%d", numeros);
+            String received = colunasTabuleiro[0];
+            assertEquals(received, expected);
+            ++numeros;
+        }
+    }
+}
+
+

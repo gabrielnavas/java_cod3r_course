@@ -82,4 +82,23 @@ public class Tabuleiro {
         campos.forEach(Campo::reiniciar);
         sortearMinas();
     }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("  ");
+        for (int i = 0; i < colunas; i++) {
+            builder.append(String.format("%d ", i + 1));
+        }
+        builder.append("\n");
+
+        for (int i = 0; i < linhas; i++) {
+            builder.append(String.format("%d ", i + 1));
+            for (int j = 0; j < colunas; j++) {
+                builder.append(campos.get(i + j)).append(" ");
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
+    }
 }
