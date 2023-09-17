@@ -1,5 +1,6 @@
 package com.navas.campominado.models;
 
+import com.navas.campominado.exceptions.CampoNaoEncontradoException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -209,5 +210,52 @@ class ToStringTabuleiroTest {
         }
     }
 }
+
+
+class AbrirCampoTabuleiroTest {
+    int linhas = 10;
+    int colunas = 10;
+    private Tabuleiro tabuleiro;
+
+    @BeforeEach
+    void setup() {
+
+        int minados = 20;
+        tabuleiro = new Tabuleiro(linhas, colunas, minados);
+    }
+
+    @Test
+    public void abrirCampo() {
+        int linha = 5;
+        int coluna = 6;
+
+        assertDoesNotThrow(() -> tabuleiro.abrirCampo(linha, coluna));
+    }
+
+
+    @Test
+    public void abrirCampoNaoExistente() {
+        int linha = linhas;
+        int coluna = colunas;
+
+        assertThrows(
+                CampoNaoEncontradoException.class,
+                () -> tabuleiro.abrirCampo(linha, coluna)
+        );
+    }
+
+
+    @Test
+    public void verificarAberturaDoCampo() {
+        int linha = 5;
+        int coluna = 6;
+
+        assertDoesNotThrow(() -> tabuleiro.abrirCampo(linha, coluna));
+
+        Campo[][] campos = tabuleiro.getCampos();
+        assertTrue(campos[linha][coluna].isAberto());
+    }
+}
+
 
 

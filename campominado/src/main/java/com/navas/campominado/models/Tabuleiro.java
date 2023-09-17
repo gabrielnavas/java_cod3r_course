@@ -1,5 +1,7 @@
 package com.navas.campominado.models;
 
+import com.navas.campominado.exceptions.CampoNaoEncontradoException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,18 @@ public class Tabuleiro {
         gerarCampos();
         associarOsVizinhos();
         sortearMinas();
+    }
+
+    public void abrirCampo(int linha, int coluna) {
+        campos.stream()
+                .filter(campo ->
+                        campo.getLinha() == linha
+                                && campo.getColuna() == coluna
+                )
+                .findFirst()
+                .ifPresentOrElse(Campo::abrir, () -> {
+                    throw new CampoNaoEncontradoException(linha, coluna);
+                });
     }
 
     private void gerarCampos() {
