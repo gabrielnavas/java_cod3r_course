@@ -126,3 +126,26 @@ class ObjetivoAlcandoTabuleiroTest {
         // TODO: fazer...
     }
 }
+
+
+class ReiniciarTabuleiroTest {
+    private Tabuleiro tabuleiro;
+
+    @BeforeEach
+    void setup() {
+        int linhas = 10;
+        int colunas = 10;
+        int minados = 20;
+        tabuleiro = new Tabuleiro(linhas, colunas, minados);
+    }
+
+    @Test
+    public void reiniciar() {
+        // TODO: abrir algum campo antes. Ainda não tem método pra isso.
+
+        assertDoesNotThrow(() -> {
+            tabuleiro.reiniciar();
+        });
+    }
+}
+

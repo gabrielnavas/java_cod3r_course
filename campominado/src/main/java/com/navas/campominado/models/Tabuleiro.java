@@ -25,18 +25,6 @@ public class Tabuleiro {
         sortearMinas();
     }
 
-
-    public Tabuleiro(int linhas, int colunas, int minas, List<Campo> campos) {
-        this.linhas = linhas;
-        this.colunas = colunas;
-        this.minas = minas;
-        this.campos = campos;
-
-        gerarCampos();
-        associarOsVizinhos();
-        sortearMinas();
-    }
-
     private void gerarCampos() {
         IntStream.range(0, linhas).forEach(linha ->
                 IntStream.range(0, colunas).forEach(coluna -> {
@@ -88,5 +76,10 @@ public class Tabuleiro {
 
     public boolean objetivoAlcando() {
         return campos.stream().allMatch(Campo::objetivoAlcancado);
+    }
+
+    public void reiniciar() {
+        campos.forEach(Campo::reiniciar);
+        sortearMinas();
     }
 }
