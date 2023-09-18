@@ -224,12 +224,16 @@ class AbrirCampoTabuleiroTest {
         tabuleiro = new Tabuleiro(linhas, colunas, minados);
     }
 
+
     @Test
-    public void abrirCampo() {
+    public void verificarAberturaDoCampo() {
         int linha = 5;
         int coluna = 6;
 
         assertDoesNotThrow(() -> tabuleiro.abrirCampo(linha, coluna));
+
+        Campo[][] campos = tabuleiro.getCampos();
+        assertTrue(campos[linha][coluna].isAberto());
     }
 
 
@@ -242,18 +246,6 @@ class AbrirCampoTabuleiroTest {
                 CampoNaoEncontradoException.class,
                 () -> tabuleiro.abrirCampo(linha, coluna)
         );
-    }
-
-
-    @Test
-    public void verificarAberturaDoCampo() {
-        int linha = 5;
-        int coluna = 6;
-
-        assertDoesNotThrow(() -> tabuleiro.abrirCampo(linha, coluna));
-
-        Campo[][] campos = tabuleiro.getCampos();
-        assertTrue(campos[linha][coluna].isAberto());
     }
 }
 
