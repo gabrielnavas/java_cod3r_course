@@ -39,6 +39,18 @@ public class Tabuleiro {
                 });
     }
 
+    public void alterarMarcacaoCampo(int linha, int coluna) {
+        campos.stream()
+                .filter(campo ->
+                        campo.getLinha() == linha
+                                && campo.getColuna() == coluna
+                )
+                .findFirst()
+                .ifPresentOrElse(Campo::alternarMarcacao, () -> {
+                    throw new CampoNaoEncontradoException(linha, coluna);
+                });
+    }
+
     private void gerarCampos() {
         IntStream.range(0, linhas).forEach(linha ->
                 IntStream.range(0, colunas).forEach(coluna -> {

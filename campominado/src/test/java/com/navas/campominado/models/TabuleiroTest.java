@@ -258,4 +258,40 @@ class AbrirCampoTabuleiroTest {
 }
 
 
+class MarcarCampoTabuleiroTest {
+    int linhas = 10;
+    int colunas = 10;
+    private Tabuleiro tabuleiro;
+
+    @BeforeEach
+    void setup() {
+        int minados = 20;
+        tabuleiro = new Tabuleiro(linhas, colunas, minados);
+    }
+
+    @Test
+    public void verificarAlterarMarcacaoCampoDoCampo() {
+        int linha = 5;
+        int coluna = 6;
+
+        assertDoesNotThrow(() -> tabuleiro.alterarMarcacaoCampo(linha, coluna));
+
+        Campo[][] campos = tabuleiro.getCampos();
+        assertTrue(campos[linha][coluna].isMarcado());
+    }
+
+
+    @Test
+    public void alterarMarcacaoCampoNaoExistente() {
+        int linha = linhas;
+        int coluna = colunas;
+
+        assertThrows(
+                CampoNaoEncontradoException.class,
+                () -> tabuleiro.alterarMarcacaoCampo(linha, coluna)
+        );
+    }
+}
+
+
 
