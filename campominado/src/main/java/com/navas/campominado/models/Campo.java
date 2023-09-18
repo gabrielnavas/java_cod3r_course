@@ -123,7 +123,7 @@ public class Campo {
             }
             long minasNaVizinhaca = minasNaVizinhaca();
             if (minasNaVizinhaca > 0) {
-                return Long.toString(minasNaVizinhaca);
+                return String.format("%d", minasNaVizinhaca);
             } else {
                 return " ";
             }

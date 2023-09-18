@@ -28,27 +28,25 @@ public class Tabuleiro {
     }
 
     public void abrirCampo(int linha, int coluna) {
-        campos.stream()
-                .filter(campo ->
-                        campo.getLinha() == linha
-                                && campo.getColuna() == coluna
-                )
-                .findFirst()
-                .ifPresentOrElse(Campo::abrir, () -> {
-                    throw new CampoNaoEncontradoException(linha, coluna);
-                });
+        for (Campo campo : campos) {
+            if (campo.getLinha() == linha
+                    && campo.getColuna() == coluna) {
+                campo.abrir();
+                return;
+            }
+        }
+        throw new CampoNaoEncontradoException(linha, coluna);
     }
 
     public void alterarMarcacaoCampo(int linha, int coluna) {
-        campos.stream()
-                .filter(campo ->
-                        campo.getLinha() == linha
-                                && campo.getColuna() == coluna
-                )
-                .findFirst()
-                .ifPresentOrElse(Campo::alternarMarcacao, () -> {
-                    throw new CampoNaoEncontradoException(linha, coluna);
-                });
+        for (Campo campo : campos) {
+            if (campo.getLinha() == linha
+                    && campo.getColuna() == coluna) {
+                campo.alternarMarcacao();
+                return;
+            }
+        }
+        throw new CampoNaoEncontradoException(linha, coluna);
     }
 
     private void gerarCampos() {
