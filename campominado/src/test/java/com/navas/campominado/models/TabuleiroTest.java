@@ -226,11 +226,11 @@ class AbrirCampoTabuleiroTest {
 
 
     @Test
-    public void verificarAberturaDoCampo() {
+    public void verificarAberturaDoCampo() throws Exception {
         int linha = 5;
         int coluna = 6;
 
-        assertDoesNotThrow(() -> tabuleiro.abrirCampo(linha, coluna));
+        tabuleiro.abrirCampo(linha, coluna);
 
         Campo[][] campos = tabuleiro.getCampos();
         assertTrue(campos[linha][coluna].isAberto());

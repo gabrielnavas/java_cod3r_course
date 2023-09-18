@@ -60,7 +60,11 @@ public class Tabuleiro {
     }
 
     private void associarOsVizinhos() {
-        campos.forEach(campoA -> campos.forEach(campoA::adicionarVizinho));
+        for (Campo c1 : campos) {
+            for (Campo c2 : campos) {
+                c1.adicionarVizinho(c2);
+            }
+        }
     }
 
     private void sortearMinas() {
@@ -109,22 +113,25 @@ public class Tabuleiro {
         sortearMinas();
     }
 
+    @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder tabuleiroStr = new StringBuilder();
 
-        builder.append("  ");
+        tabuleiroStr.append("  ");
         for (int i = 0; i < colunas; i++) {
-            builder.append(String.format("%d ", i + 1));
+            tabuleiroStr.append(String.format("%d ", i + 1));
         }
-        builder.append("\n");
+        tabuleiroStr.append("\n");
 
         for (int i = 0; i < linhas; i++) {
-            builder.append(String.format("%d ", i + 1));
+            tabuleiroStr.append(String.format("%d ", i + 1));
             for (int j = 0; j < colunas; j++) {
-                builder.append(campos.get(i + j)).append(" ");
+                String campoStr = campos.get(i + j).toString();
+                tabuleiroStr.append(campoStr);
+                tabuleiroStr.append(" ");
             }
-            builder.append("\n");
+            tabuleiroStr.append("\n");
         }
-        return builder.toString();
+        return tabuleiroStr.toString();
     }
 }
