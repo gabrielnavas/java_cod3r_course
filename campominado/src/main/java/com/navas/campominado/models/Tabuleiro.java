@@ -1,11 +1,12 @@
 package com.navas.campominado.models;
 
 import com.navas.campominado.exceptions.CampoNaoEncontradoException;
+import com.navas.campominado.exceptions.ExplosaoException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 public class Tabuleiro {
@@ -28,14 +29,19 @@ public class Tabuleiro {
     }
 
     public void abrirCampo(int linha, int coluna) {
-        for (Campo campo : campos) {
-            if (campo.getLinha() == linha
-                    && campo.getColuna() == coluna) {
-                campo.abrir();
-                return;
+        try {
+            for (Campo campo : campos) {
+                if (campo.getLinha() == linha
+                        && campo.getColuna() == coluna) {
+                    campo.abrir();
+                    return;
+                }
             }
+            throw new CampoNaoEncontradoException(linha, coluna);
+        } catch (ExplosaoException ex) {
+            campos.forEach(campo -> campo.setAberto(true));
+            throw ex;
         }
-        throw new CampoNaoEncontradoException(linha, coluna);
     }
 
     public void alterarMarcacaoCampo(int linha, int coluna) {
@@ -66,25 +72,14 @@ public class Tabuleiro {
     }
 
     private void sortearMinas() {
-        int minasArmadas = 0;
+        long minasArmadas = 0;
+
+        Predicate<Campo> minado = Campo::isMinado;
 
         do {
-            int linha = new Random().nextInt(linhas);
-            int coluna = new Random().nextInt(colunas);
-
-            Optional<Campo> campoOptional = campos
-                    .stream()
-                    .filter(campoN -> campoN.getLinha() == linha
-                            && campoN.getColuna() == coluna
-                    ).findFirst();
-
-            if (campoOptional.isPresent()) {
-                Campo campo = campoOptional.get();
-                if (!campo.isMinado()) {
-                    campo.minar();
-                    minasArmadas++;
-                }
-            }
+            int aleatorio = (int) (Math.random() * campos.size());
+            campos.get(aleatorio).minar();
+            minasArmadas = campos.stream().filter(minado).count();
         } while (minasArmadas < minas);
     }
 
@@ -109,6 +104,14 @@ public class Tabuleiro {
     public void reiniciar() {
         campos.forEach(Campo::reiniciar);
         sortearMinas();
+    }
+
+    public int getColunas() {
+        return colunas;
+    }
+
+    public int getLinhas() {
+        return linhas;
     }
 
     @Override
