@@ -29,38 +29,37 @@ public class Tabuleiro {
     }
 
     public void abrirCampo(int linha, int coluna) {
-        try {
-            for (Campo campo : campos) {
-                if (campo.getLinha() == linha
-                        && campo.getColuna() == coluna) {
-                    campo.abrir();
-                    return;
-                }
-            }
+        if (linha >= linhas || coluna >= colunas || linha < 0 || coluna < 0) {
             throw new CampoNaoEncontradoException(linha, coluna);
-        } catch (ExplosaoException ex) {
-            campos.forEach(campo -> campo.setAberto(true));
-            throw ex;
+        }
+        
+        try {
+            campos.parallelStream()
+                    .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
+                    .findFirst()
+                    .ifPresent(Campo::abrir);
+        } catch (ExplosaoException e) {
+            campos.forEach(c -> c.setAberto(true));
+            throw e;
         }
     }
 
     public void alterarMarcacaoCampo(int linha, int coluna) {
-        for (Campo campo : campos) {
-            if (campo.getLinha() == linha
-                    && campo.getColuna() == coluna) {
-                campo.alternarMarcacao();
-                return;
-            }
+        if (linha >= linhas || coluna >= colunas || linha < 0 || coluna < 0) {
+            throw new CampoNaoEncontradoException(linha, coluna);
         }
-        throw new CampoNaoEncontradoException(linha, coluna);
+        campos.parallelStream()
+                .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
+                .findFirst()
+                .ifPresent(Campo::alternarMarcacao);
     }
 
     private void gerarCampos() {
-        IntStream.range(0, linhas).forEach(linha ->
-                IntStream.range(0, colunas).forEach(coluna -> {
-                    Campo campo = new Campo(linha, coluna);
-                    campos.add(campo);
-                }));
+        for (int linha = 0; linha < linhas; linha++) {
+            for (int coluna = 0; coluna < colunas; coluna++) {
+                campos.add(new Campo(linha, coluna));
+            }
+        }
     }
 
     private void associarOsVizinhos() {
@@ -73,7 +72,6 @@ public class Tabuleiro {
 
     private void sortearMinas() {
         long minasArmadas = 0;
-
         Predicate<Campo> minado = Campo::isMinado;
 
         do {
@@ -116,23 +114,30 @@ public class Tabuleiro {
 
     @Override
     public String toString() {
-        StringBuilder tabuleiroStr = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        tabuleiroStr.append("  ");
-        for (int i = 0; i < colunas; i++) {
-            tabuleiroStr.append(String.format("%d ", i + 1));
+        sb.append("  ");
+        for (int c = 0; c < colunas; c++) {
+            sb.append(" ");
+            sb.append(c);
+            sb.append(" ");
         }
-        tabuleiroStr.append("\n");
 
-        for (int i = 0; i < linhas; i++) {
-            tabuleiroStr.append(String.format("%d ", i + 1));
-            for (int j = 0; j < colunas; j++) {
-                String campoStr = campos.get(i + j).toString();
-                tabuleiroStr.append(campoStr);
-                tabuleiroStr.append(" ");
+        sb.append("\n");
+
+        int i = 0;
+        for (int l = 0; l < linhas; l++) {
+            sb.append(l);
+            sb.append(" ");
+            for (int c = 0; c < colunas; c++) {
+                sb.append(" ");
+                sb.append(campos.get(i));
+                sb.append(" ");
+                i++;
             }
-            tabuleiroStr.append("\n");
+            sb.append("\n");
         }
-        return tabuleiroStr.toString();
+
+        return sb.toString();
     }
 }

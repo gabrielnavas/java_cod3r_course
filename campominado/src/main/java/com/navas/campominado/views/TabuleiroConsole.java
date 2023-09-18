@@ -5,7 +5,7 @@ import com.navas.campominado.exceptions.SairException;
 import com.navas.campominado.models.Tabuleiro;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class TabuleiroConsole {
@@ -27,7 +27,8 @@ public class TabuleiroConsole {
             while (continuar) {
                 cicloDoJogo();
 
-                String resposta = capturarValorDigitado("Outra partida? (S/n) ");
+                System.out.println("Outra partida? (S/n) ");
+                String resposta = entrada.nextLine();
 
                 if ("n".equalsIgnoreCase(resposta)) {
                     continuar = false;
@@ -35,8 +36,8 @@ public class TabuleiroConsole {
                     tabuleiro.reiniciar();
                 }
             }
-        } catch (SairException ex) {
-            System.out.println("Tchau!!");
+        } catch (SairException e) {
+            System.out.println("Tchau!!!");
         } finally {
             entrada.close();
         }
@@ -44,47 +45,33 @@ public class TabuleiroConsole {
 
     private void cicloDoJogo() {
         try {
+
             while (!tabuleiro.objetivoAlcando()) {
                 System.out.println(tabuleiro);
 
                 String digitado = capturarValorDigitado("Digite (x, y): ");
 
-                try {
-                    List<Integer> coodernadas = Arrays.stream(
-                                    digitado.replaceAll(" ", "").split(",")
-                            )
-                            .map(Integer::parseInt)
-                            .toList();
+                Iterator<Integer> xy = Arrays.stream(digitado.split(","))
+                        .map(e -> Integer.parseInt(e.trim())).iterator();
 
-                    if (coodernadas.size() != 2 && (coodernadas.get(0) >= tabuleiro.getLinhas() || coodernadas.get(1) >= tabuleiro.getColunas())) {
-                        System.out.println("Digite o x e y corretamente.");
-                        continue;
-                    }
+                digitado = capturarValorDigitado("1 - Abrir ou 2 - (Des)Marcar: ");
 
-                    String acao = capturarValorDigitado("1 - Abrir ou 2 - (Des)Marcar: ");
-
-                    if ("1".equalsIgnoreCase(acao)) {
-                        tabuleiro.abrirCampo(coodernadas.get(0) - 1, coodernadas.get(1) - 1);
-                    } else if ("2".equalsIgnoreCase(acao)) {
-
-                    }
-
-
-                } catch (NumberFormatException ex) {
-                    System.out.println("Digite apenas coodernadas.");
+                if ("1".equals(digitado)) {
+                    tabuleiro.abrirCampo(xy.next(), xy.next());
+                } else if ("2".equals(digitado)) {
+                    tabuleiro.alterarMarcacaoCampo(xy.next(), xy.next());
                 }
-
             }
 
+            System.out.println(tabuleiro);
             System.out.println("Você ganhou!!!");
-        } catch (ExplosaoException ex) {
+        } catch (ExplosaoException e) {
             System.out.println(tabuleiro);
             System.out.println("Você perdeu!");
         }
     }
 
     private String capturarValorDigitado(String texto) {
-        System.out.println("\nDigite 'sair' para terminar o jogo.");
         System.out.print(texto);
         String digitado = entrada.nextLine();
 

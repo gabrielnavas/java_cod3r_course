@@ -20,21 +20,23 @@ public class Campo {
     }
 
     boolean adicionarVizinho(Campo vizinho) {
-        boolean linhaDiferente = linha != vizinho.getLinha();
-        boolean colunaDiferente = coluna != vizinho.getColuna();
+        boolean linhaDiferente = linha != vizinho.linha;
+        boolean colunaDiferente = coluna != vizinho.coluna;
         boolean diagonal = linhaDiferente && colunaDiferente;
 
-        int deltaLinha = Math.abs(linha - vizinho.getLinha());
-        int deltaColuna = Math.abs(coluna - vizinho.getColuna());
-        int deltaGeral = deltaLinha + deltaColuna;
+        int deltaLinha = Math.abs(linha - vizinho.linha);
+        int deltaColuna = Math.abs(coluna - vizinho.coluna);
+        int detalGeral = deltaColuna + deltaLinha;
 
-        if (!diagonal && deltaGeral == 1) {
-            return vizinhos.add(vizinho);
-        } else if (diagonal && deltaGeral == 2) {
-            return vizinhos.add(vizinho);
+        if (detalGeral == 1 && !diagonal) {
+            vizinhos.add(vizinho);
+            return true;
+        } else if (detalGeral == 2 && diagonal) {
+            vizinhos.add(vizinho);
+            return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     void alternarMarcacao() {
@@ -44,7 +46,7 @@ public class Campo {
     }
 
     boolean abrir() {
-        if (!marcado && !aberto) {
+        if (!aberto && !marcado) {
             aberto = true;
 
             if (minado) {
@@ -56,13 +58,13 @@ public class Campo {
             }
 
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     boolean vizinhacaSegura() {
-        return vizinhos.stream().noneMatch(vizinho -> vizinho.minado);
+        return vizinhos.stream().noneMatch(Campo::isMinado);
     }
 
     void minar() {
@@ -106,9 +108,7 @@ public class Campo {
     }
 
     long minasNaVizinhaca() {
-        return vizinhos.stream()
-                .filter(Campo::isMinado)
-                .count();
+        return vizinhos.stream().filter(v -> v.minado).count();
     }
 
     void reiniciar() {
@@ -121,17 +121,14 @@ public class Campo {
     public String toString() {
         if (marcado) {
             return "x";
+        } else if (aberto && minado) {
+            return "*";
+        } else if (aberto && minasNaVizinhaca() > 0) {
+            return Long.toString(minasNaVizinhaca());
         } else if (aberto) {
-            if (minado) {
-                return "*";
-            }
-            long minasNaVizinhaca = minasNaVizinhaca();
-            if (minasNaVizinhaca > 0) {
-                return String.format("%d", minasNaVizinhaca);
-            } else {
-                return " ";
-            }
+            return " ";
+        } else {
+            return "?";
         }
-        return "?";
     }
 }

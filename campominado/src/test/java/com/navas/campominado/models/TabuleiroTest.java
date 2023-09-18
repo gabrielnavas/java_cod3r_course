@@ -244,12 +244,13 @@ class AbrirCampoTabuleiroTest {
 
     @Test
     public void abrirCampoNaoExistente() {
-        int linha = linhas;
-        int coluna = colunas;
-
         assertThrows(
                 CampoNaoEncontradoException.class,
-                () -> tabuleiro.abrirCampo(linha, coluna)
+                () -> tabuleiro.abrirCampo(linhas, colunas)
+        );
+        assertThrows(
+                CampoNaoEncontradoException.class,
+                () -> tabuleiro.abrirCampo(-1, -1)
         );
     }
 }
@@ -280,12 +281,13 @@ class MarcarCampoTabuleiroTest {
 
     @Test
     public void alterarMarcacaoCampoNaoExistente() {
-        int linha = linhas;
-        int coluna = colunas;
-
         assertThrows(
                 CampoNaoEncontradoException.class,
-                () -> tabuleiro.alterarMarcacaoCampo(linha, coluna)
+                () -> tabuleiro.alterarMarcacaoCampo(linhas, colunas)
+        );
+        assertThrows(
+                CampoNaoEncontradoException.class,
+                () -> tabuleiro.alterarMarcacaoCampo(-1, -1)
         );
     }
 }
