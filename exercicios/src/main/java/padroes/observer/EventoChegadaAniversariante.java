@@ -13,4 +13,9 @@ public class EventoChegadaAniversariante {
     public Date getMomento() {
         return momento;
     }
+
+    @Override
+    public String toString() {
+        return momento.toString();
+    }
 }
