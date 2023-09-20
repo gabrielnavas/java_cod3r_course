@@ -1,13 +1,15 @@
 package com.navas.campominado.models;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Campo {
 
     private final int linha;
     private final int coluna;
-    private final List<Campo> vizinhos = new ArrayList<>();
+    private final Set<Campo> vizinhos = new HashSet<>();
+    private final Set<CampoObservador> observadores = new HashSet<>();
     private boolean minado = false;
     private boolean aberto = false;
     private boolean marcado = false;
@@ -15,6 +17,14 @@ public class Campo {
     Campo(int linha, int coluna) {
         this.linha = linha;
         this.coluna = coluna;
+    }
+
+    public void registrarObservador(CampoObservador observador) {
+        observadores.add(observador);
+    }
+
+    private void notificarObservadores(CampoEvento evento) {
+        observadores.stream().forEach(observador -> observador.eventoOcorreu(this, evento));
     }
 
     boolean adicionarVizinho(Campo vizinho) {
@@ -40,16 +50,23 @@ public class Campo {
     void alternarMarcacao() {
         if (!aberto) {
             marcado = !marcado;
+
+            notificarObservadores(marcado
+                    ? CampoEvento.MARCAR
+                    : CampoEvento.DESMARCAR
+            );
         }
     }
 
     boolean abrir() {
         if (!aberto && !marcado) {
-            aberto = true;
 
             if (minado) {
-                // TODO: implementar lançamento de exception ou tratar isso
+                notificarObservadores(CampoEvento.EXPLODIR);
+                return true;
             }
+
+            setAberto(true);
 
             if (vizinhacaSegura()) {
                 vizinhos.forEach(Campo::abrir);
@@ -93,6 +110,9 @@ public class Campo {
 
     void setAberto(boolean aberto) {
         this.aberto = aberto;
+        if (aberto) {
+            notificarObservadores(CampoEvento.ABRIR);
+        }
     }
 
     public List<Campo> getVizinhos() {

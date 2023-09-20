@@ -137,13 +137,10 @@ class AbrirTest {
 
     @Test
     void testeAbrirMinado() {
-        // FIXME: arrumar isso
-//        campo = new Campo(campo.getLinha(), campo.getColuna());
-//        campo.minar();
-//        assertThrows(ExplosaoException.class, () -> {
-//            boolean aberto = campo.abrir();
-//            assertFalse(aberto);
-//        });
+        campo = new Campo(campo.getLinha(), campo.getColuna());
+        campo.minar();
+        boolean aberto = campo.abrir();
+        assertTrue(aberto);
     }
 
     @Test
