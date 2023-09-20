@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 public class Observador {
     public static void main(String[] args) {
@@ -27,8 +29,22 @@ public class Observador {
         // definir o tamanho do botão
         botao.setSize(400, 200);
 
+        // esse método usa uma interface funcional
         botao.addActionListener(e -> {
             System.out.println("fui chamado");
+        });
+
+        // esse método é preciso implementar uma classe, já que existem dois métodos a serem implementados
+        botao.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent focusEvent) {
+                System.out.println("botão ganhou o foco!");
+            }
+
+            @Override
+            public void focusLost(FocusEvent focusEvent) {
+                System.out.println("botão perdeu o foco!");
+            }
         });
 
         // mostrar a janela
