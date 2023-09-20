@@ -23,10 +23,6 @@ public class Campo {
         observadores.add(observador);
     }
 
-    private void notificarObservadores(CampoEvento evento) {
-        observadores.stream().forEach(observador -> observador.eventoOcorreu(this, evento));
-    }
-
     boolean adicionarVizinho(Campo vizinho) {
         boolean linhaDiferente = linha != vizinho.linha;
         boolean colunaDiferente = coluna != vizinho.coluna;
@@ -88,6 +84,30 @@ public class Campo {
         }
     }
 
+    public List<Campo> getVizinhos() {
+        return vizinhos.stream().toList();
+    }
+
+    boolean objetivoAlcancado() {
+        boolean desvendado = !minado && aberto;
+        boolean protegido = minado && marcado;
+        return desvendado || protegido;
+    }
+
+    long minasNaVizinhaca() {
+        return vizinhos.stream().filter(v -> v.minado).count();
+    }
+
+    void reiniciar() {
+        minado = false;
+        aberto = false;
+        marcado = false;
+    }
+
+    private void notificarObservadores(CampoEvento evento) {
+        observadores.stream().forEach(observador -> observador.eventoOcorreu(this, evento));
+    }
+
     public int getColuna() {
         return coluna;
     }
@@ -113,25 +133,5 @@ public class Campo {
         if (aberto) {
             notificarObservadores(CampoEvento.ABRIR);
         }
-    }
-
-    public List<Campo> getVizinhos() {
-        return vizinhos.stream().toList();
-    }
-
-    boolean objetivoAlcancado() {
-        boolean desvendado = !minado && aberto;
-        boolean protegido = minado && marcado;
-        return desvendado || protegido;
-    }
-
-    long minasNaVizinhaca() {
-        return vizinhos.stream().filter(v -> v.minado).count();
-    }
-
-    void reiniciar() {
-        minado = false;
-        aberto = false;
-        marcado = false;
     }
 }
