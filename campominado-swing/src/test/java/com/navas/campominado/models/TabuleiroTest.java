@@ -168,14 +168,10 @@ class AbrirCampoTabuleiroTest {
         int linha = 5;
         int coluna = 6;
 
-        try {
-            tabuleiro.abrirCampo(linha, coluna);
+        tabuleiro.abrirCampo(linha, coluna);
 
-            Campo[][] campos = tabuleiro.getCampos();
-            assertTrue(campos[linha][coluna].isAberto());
-        } catch (Exception ex) {
-
-        }
+        Campo[][] campos = tabuleiro.getCampos();
+        assertTrue(campos[linha][coluna].isAberto());
     }
 
 
