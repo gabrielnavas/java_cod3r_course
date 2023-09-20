@@ -27,11 +27,8 @@ public class Observador {
         // definir o tamanho do botão
         botao.setSize(400, 200);
 
-        botao.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("um evento aconteceu");
-            }
+        botao.addActionListener(e -> {
+            System.out.println("fui chamado");
         });
 
         // mostrar a janela
