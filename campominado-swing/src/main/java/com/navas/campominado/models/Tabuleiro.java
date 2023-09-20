@@ -3,13 +3,15 @@ package com.navas.campominado.models;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
-public class Tabuleiro {
+public class Tabuleiro implements CampoObservador {
 
     // TODO: implementar usando matrix => List<List<Campo>> campos = new ArrayList<>();
     private final List<Campo> campos;
+    private final List<Consumer<ResultadoEvento>> observadores = new ArrayList<>();
     private int linhas;
     private int colunas;
     private int minas;
@@ -25,21 +27,19 @@ public class Tabuleiro {
         sortearMinas();
     }
 
-    public void abrirCampo(int linha, int coluna) {
-        if (linha >= linhas || coluna >= colunas || linha < 0 || coluna < 0) {
-            // TODO: implementar lançamento de exception ou tratar isso
-        }
+    public void registrarObservador(Consumer<ResultadoEvento> observador) {
+        observadores.add(observador);
+    }
 
-        try {
-            campos.parallelStream()
-                    .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
-                    .findFirst()
-                    .ifPresent(Campo::abrir);
-        } catch (Exception e) {
-            // FIXME: ajustar a implementação do método do abrir
-            campos.forEach(c -> c.setAberto(true));
-            throw e;
-        }
+    public void notificarObservadores(boolean resultado) {
+        observadores.forEach(observador -> observador.accept(new ResultadoEvento(resultado)));
+    }
+
+    public void abrirCampo(int linha, int coluna) {
+        campos.parallelStream()
+                .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
+                .findFirst()
+                .ifPresent(Campo::abrir);
     }
 
     public void alterarMarcacaoCampo(int linha, int coluna) {
@@ -55,7 +55,9 @@ public class Tabuleiro {
     private void gerarCampos() {
         for (int linha = 0; linha < linhas; linha++) {
             for (int coluna = 0; coluna < colunas; coluna++) {
-                campos.add(new Campo(linha, coluna));
+                Campo campo = new Campo(linha, coluna);
+                campo.registrarObservador(this);
+                campos.add(campo);
             }
         }
     }
@@ -108,5 +110,21 @@ public class Tabuleiro {
 
     public int getLinhas() {
         return linhas;
+    }
+
+    @Override
+    public void eventoOcorreu(Campo campo, CampoEvento campoEvento) {
+        if (campoEvento == CampoEvento.EXPLODIR) {
+            mostrarMinas();
+            notificarObservadores(false);
+        } else if (objetivoAlcando()) {
+            notificarObservadores(true);
+        }
+    }
+
+    private void mostrarMinas() {
+        campos.stream()
+                .filter(Campo::isMinado)
+                .forEach(campo -> campo.setAberto(true));
     }
 }
