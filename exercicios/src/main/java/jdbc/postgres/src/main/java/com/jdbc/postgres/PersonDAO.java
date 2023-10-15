@@ -1,9 +1,8 @@
 package com.jdbc.postgres;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonDAO {
 
@@ -29,6 +28,22 @@ public class PersonDAO {
         PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, name);
         pstmt.execute();
+    }
+
+    public List<Person> findAllPersons() throws SQLException {
+        List<Person> persons = new ArrayList<>();
+
+        String sql = "SELECT id, name FROM person;";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        ResultSet rset = pstmt.executeQuery();
+        while(rset.next()) {
+            Person person = new Person(
+                    rset.getInt("id"),
+                    rset.getString("name")
+            );
+            persons.add(person);
+        }
+        return persons;
     }
 
     public void closeConnection() throws SQLException {

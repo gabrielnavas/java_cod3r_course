@@ -1,9 +1,8 @@
 package com.jdbc.postgres;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 
 public class TestConnection {
     public static void main(String[] args) throws SQLException {
@@ -11,6 +10,15 @@ public class TestConnection {
         PersonDAO personDAO = new PersonDAO(connection);
         personDAO.createTable();
         personDAO.insertPerson("gabriel");
+        personDAO.insertPerson("maria");
+        personDAO.insertPerson("joao");
+        personDAO.insertPerson("mario");
+        personDAO.insertPerson("julia");
+        personDAO.insertPerson("kika");
+        List<Person> persons = personDAO.findAllPersons();
+        for (Person person : persons) {
+            System.out.println(person);
+        }
         personDAO.closeConnection();
     }
 }
