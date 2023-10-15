@@ -63,6 +63,14 @@ public class PersonDAO {
         }
     }
 
+    public void updateById(int id, Person person) throws SQLException {
+        String sql = "UPDATE person SET name = ? WHERE id = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, person.getName());
+        pstmt.setInt(2, id);
+        pstmt.execute();
+    }
+
     public void closeConnection() throws SQLException {
         this.connection.close();
     }

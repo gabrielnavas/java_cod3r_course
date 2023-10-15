@@ -18,6 +18,8 @@ public class TestConnection {
         System.out.println(maria);
         System.out.println(joao);
 
+        personDAO.updateById(gab.getId(), new Person("josé"));
+
         List<Person> persons = personDAO.findAllPersons();
         for (Person person : persons) {
             System.out.println(person);
