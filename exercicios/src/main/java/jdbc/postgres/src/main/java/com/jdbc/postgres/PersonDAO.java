@@ -23,11 +23,19 @@ public class PersonDAO {
         System.out.println("table person created");
     }
 
-    public void insertPerson(String name) throws SQLException {
-        String sql = "INSERT INTO person (name) values (?)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
+    public Person insertPerson(String name) throws SQLException {
+        String sql = "INSERT INTO person (name) VALUES (?);";
+        PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         pstmt.setString(1, name);
-        pstmt.execute();
+        pstmt.executeUpdate();
+        ResultSet rs = pstmt.getGeneratedKeys();
+        if(rs.next()) {
+            return new Person(
+                    rs.getInt(1),
+                    name
+            );
+        }
+        throw new RuntimeException("problem on insert person");
     }
 
     public List<Person> findAllPersons() throws SQLException {

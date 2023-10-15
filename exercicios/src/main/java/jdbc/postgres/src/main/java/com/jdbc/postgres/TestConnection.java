@@ -9,12 +9,15 @@ public class TestConnection {
         Connection connection = ConnectionFactory.getConnection();
         PersonDAO personDAO = new PersonDAO(connection);
         personDAO.createTable();
-        personDAO.insertPerson("gabriel");
-        personDAO.insertPerson("maria");
-        personDAO.insertPerson("joao");
-        personDAO.insertPerson("mario");
-        personDAO.insertPerson("julia");
-        personDAO.insertPerson("kika");
+
+        Person gab = personDAO.insertPerson("gabriel");
+        Person maria = personDAO.insertPerson("maria");
+        Person joao = personDAO.insertPerson("joao");
+
+        System.out.println(gab);
+        System.out.println(maria);
+        System.out.println(joao);
+
         List<Person> persons = personDAO.findAllPersons();
         for (Person person : persons) {
             System.out.println(person);
