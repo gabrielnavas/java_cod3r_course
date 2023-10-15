@@ -3,6 +3,7 @@ package com.jdbc.postgres;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PersonDAO {
 
@@ -53,6 +54,21 @@ public class PersonDAO {
         }
         return persons;
     }
+
+    public Optional<Person> findPersonById(int id) throws SQLException {
+        String sql = "SELECT id, name FROM person WHERE id = ?;";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rset = pstmt.executeQuery();
+        if(rset.next()) {
+            return Optional.of(new Person(
+                    rset.getInt("id"),
+                    rset.getString("name")
+            ));
+        }
+        return Optional.empty();
+    }
+
 
     public void deleteById(int id) throws SQLException {
         String sql = "DELETE FROM person WHERE id = ?";

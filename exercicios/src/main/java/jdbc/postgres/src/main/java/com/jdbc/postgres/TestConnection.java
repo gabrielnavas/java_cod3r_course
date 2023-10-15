@@ -3,6 +3,7 @@ package com.jdbc.postgres;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class TestConnection {
     public static void main(String[] args) throws SQLException {
@@ -19,6 +20,9 @@ public class TestConnection {
         System.out.println(joao);
 
         personDAO.updateById(gab.getId(), new Person("josé"));
+
+        Optional<Person> optionalPerson = personDAO.findPersonById(gab.getId());
+        optionalPerson.ifPresent(System.out::println);
 
         List<Person> persons = personDAO.findAllPersons();
         for (Person person : persons) {
