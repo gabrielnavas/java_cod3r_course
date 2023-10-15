@@ -22,4 +22,8 @@ public class Person {
     public String toString() {
         return String.format("%d:%s", id, name);
     }
+
+    public int getId() {
+        return id;
+    }
 }

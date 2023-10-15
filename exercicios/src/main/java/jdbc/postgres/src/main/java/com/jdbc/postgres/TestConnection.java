@@ -18,6 +18,12 @@ public class TestConnection {
         List<Person> persons = personDAO.findAllPersons();
         for (Person person : persons) {
             System.out.println(person);
+            personDAO.deleteById(person.getId());
+        }
+
+        persons = personDAO.findAllPersons();
+        if(persons.size() == 0) {
+            System.out.println("all persons are deleted");
         }
         personDAO.closeConnection();
     }
