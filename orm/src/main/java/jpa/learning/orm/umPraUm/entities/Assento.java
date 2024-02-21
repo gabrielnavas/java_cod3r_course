@@ -14,8 +14,9 @@ public class Assento {
 
     private String name;
 
-    // isso informa que a relação one to one foi mapeada pelo assento
-    // isso faz com que não seja criado uma colina na tabela tb_assento
+    // isso informa que a relação one to one foi mapeada pelo Assento
+    // o atributo que realmente mapeia é o atributo assento que está dentro de Cliente
+    // isso faz com que não seja criado uma coluna na tabela tb_assento
     // relações one to one, apenas uma tabela deve ter a relação
     // essa referência será apenas para ter acesso ao cliente aqui no objeto assento
     @OneToOne(mappedBy = "assento")
@@ -25,12 +26,9 @@ public class Assento {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getName() {
-        return name;
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public void setName(String name) {

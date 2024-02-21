@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class ExampleCommandRunner{
 
@@ -51,6 +53,16 @@ public class ExampleCommandRunner{
 
         clienteRepository.save(cliente);
 
-        System.out.println(cliente.getAssento().getId()); // printa o id do assento
+        // printa os ids, indo pelo cliente ou pelo assento, a partir do cliente
+        clienteRepository.findById(cliente.getId()).ifPresent(c -> {
+            System.out.println(c.getAssento().getId()); // printa o id do assento pelo cliente
+            System.out.println(c.getAssento().getCliente().getId()); // printa o id do cliente pelo assento
+        });
+
+        // printa os ids, indo pelo cliente ou pelo assento, a partir do cliente
+        assentoRepository.findById(assento.getId()).ifPresent(as -> {
+            System.out.println(as.getCliente().getId()); // printa o id do cliente pelo assento
+            System.out.println(as.getCliente().getAssento().getId()); // printa o id do assento pelo cliente
+        });
     }
 }
