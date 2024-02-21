@@ -13,8 +13,7 @@ import java.util.Objects;
  * Nesse caso foi escolhiddo atraves do cliente obter o assento
  * */
 
-@Entity(name = "tb_cliente")
-@Table(name = "tb_cliente")
+@Entity
 public class Cliente {
 
     @Id

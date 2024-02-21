@@ -1,0 +1,7 @@
+package jpa.learning.orm.umPraMuitos.repositories;
+
+import jpa.learning.orm.umPraMuitos.entities.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface BookRepository extends JpaRepository<Book, Long> {
+}

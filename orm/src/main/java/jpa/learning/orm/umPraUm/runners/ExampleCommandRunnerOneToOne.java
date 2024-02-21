@@ -10,10 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-public class ExampleCommandRunner{
+public class ExampleCommandRunnerOneToOne {
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -29,7 +27,7 @@ public class ExampleCommandRunner{
     @Transactional
     public CommandLineRunner run() {
         return args -> {
-            example2();
+//            example2();
         };
     }
 
@@ -39,7 +37,7 @@ public class ExampleCommandRunner{
         Cliente cliente = new Cliente();
         cliente.setName("mario");
 
-        assento=assentoRepository.save(assento);
+        assento = assentoRepository.save(assento);
         cliente.setAssento(assento);
         clienteRepository.save(cliente);
     }
