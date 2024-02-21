@@ -23,7 +23,9 @@ public class Cliente {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = {
+            CascadeType.PERSIST // quando o registro do cliente for salvo, o assento será também
+    })
     @JoinColumn(
             name = "assento_id", // nome da coluna na tabela
             unique = true // garantir que só existirá um cliente com o assento definido

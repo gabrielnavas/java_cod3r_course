@@ -19,27 +19,38 @@ public class ExampleCommandRunner{
     @Autowired
     private AssentoRepository assentoRepository;
 
+    // é preciso ter o 'assento' já no banco de dados.
+    // mas como to usando o @transactional, não preciso seguir a ordem correta.
+    // ele insere o assento primeiro automaticamente, usando o transaction,
+    // mas é mais perfomático na ordem correta
     @Bean
     @Transactional
     public CommandLineRunner run() {
         return args -> {
-            Assento assento = new Assento();
-            assento.setName("#1");
-            Cliente cliente = new Cliente();
-            cliente.setName("mario");
-
-            // é preciso ter o assento já no banco de dados.
-            // mas como to usando o transactional, não preciso seguir essa ordem.
-            // ele insere o assento primeiro automaticamente, usando o transaction,
-            // mas é mais perfomático na ordem correta
-            assento=assentoRepository.save(assento);
-            cliente.setAssento(assento);
-            clienteRepository.save(cliente);
-
-            // printa todos os clientes
-            for(Cliente c : clienteRepository.findAll()) {
-                System.out.printf("id: %d nome: %s nome do assento: %s%n", c.getId(), c.getName(), c.getAssento().getName());
-            }
+            example2();
         };
+    }
+
+    private void example1() {
+        Assento assento = new Assento();
+        assento.setName("#1");
+        Cliente cliente = new Cliente();
+        cliente.setName("mario");
+
+        assento=assentoRepository.save(assento);
+        cliente.setAssento(assento);
+        clienteRepository.save(cliente);
+    }
+
+    private void example2() {
+        Assento assento = new Assento();
+        assento.setName("#1");
+        Cliente cliente = new Cliente();
+        cliente.setName("mario");
+        cliente.setAssento(assento);
+
+        clienteRepository.save(cliente);
+
+        System.out.println(cliente.getAssento().getId()); // printa o id do assento
     }
 }
