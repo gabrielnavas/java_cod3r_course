@@ -14,6 +14,13 @@ public class Assento {
 
     private String name;
 
+    // isso informa que a relação one to one foi mapeada pelo assento
+    // isso faz com que não seja criado uma colina na tabela tb_assento
+    // relações one to one, apenas uma tabela deve ter a relação
+    // essa referência será apenas para ter acesso ao cliente aqui no objeto assento
+    @OneToOne(mappedBy = "assento")
+    private Cliente cliente;
+
     public Long getId() {
         return id;
     }
