@@ -32,7 +32,7 @@ public class ExampleCommandRunnerOneToMany {
     @Bean
     public CommandLineRunner run1() {
         return args -> {
-            example1();
+//            example1();
         };
     }
 
@@ -53,13 +53,13 @@ public class ExampleCommandRunnerOneToMany {
             add(book);
         }});
 
-//        publisherRepository.save(publisher);
-//        authorRepository.save(author);
+        // se explicitar que o cascade é CascadeType.PERSIST, não precisa ter os Objetos na base primeiro
+        publisherRepository.save(publisher);
+        authorRepository.save(author);
 
         book.setPublisher(publisher);
         book.setAuthor(author);
 
         bookRepository.save(book);
-
     }
 }

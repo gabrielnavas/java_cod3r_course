@@ -10,11 +10,13 @@ public class Book {
 
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    //    @ManyToOne(cascade = CascadeType.PERSIST) // o aluno não precisa existir na base, sera inserido automaticamente.
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    //    @ManyToOne(cascade = CascadeType.ALL) // o aluno não precisa existir na base, sera inserido automaticamente.
+    @ManyToOne
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
